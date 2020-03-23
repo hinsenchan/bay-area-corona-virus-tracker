@@ -71,7 +71,7 @@ function App() {
           />)
       })}
       <div>Created by Hinsen Chan</div>
-      <div>https://github.com/hinsenchan</div>
+      <a href="https://github.com/hinsenchan" target="_blank" rel="noopener noreferrer">https://github.com/hinsenchan</a>
     </div>
   );
 }
