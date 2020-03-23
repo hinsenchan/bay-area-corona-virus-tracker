@@ -75,7 +75,11 @@ function App() {
             labels: {
               format: '{value:%m-%d}'
             },
+            type: 'datetime'
           },          
+          tooltip: {
+            xDateFormat: '%m-%d',
+          },
           series: [{
             data: series
           }]          
