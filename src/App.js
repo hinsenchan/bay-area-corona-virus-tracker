@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {isEmpty, isEqual, keyBy, map, mapValues, omit, toNumber} from "lodash";
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import {isEmpty, isEqual, keyBy, map, mapValues, omit, sortBy, toNumber} from "lodash";
 import moment from "moment";
 import store from "store2";
-import logo from './logo.svg';
 import './App.css';
 
 async function fetchAPIData() {
@@ -40,24 +41,35 @@ function App() {
   const bayAreaCountiesDataSet = keyBy(bayAreaCounties, (county)=>`${county["GEOGRAPHY"]} ${county["CATEGORY"]}`);
   const bayAreaCountiesTimeSeriesObj = mapValues(bayAreaCountiesDataSet, (county)=>{return omit(county, ["ROW", "GEOGRAPHY", "BAY AREA", "CATEGORY", "TOTALS"]);});
   const bayAreaCountiesTimeSeries = mapValues(bayAreaCountiesTimeSeriesObj, (county)=>{return map(county, (value, key)=>{return {x: moment(key).valueOf(), y: toNumber(value)}})})
-  console.log(bayAreaCountiesTimeSeries);
-
+  const sortedBayAreaCountiesTimeSeries = mapValues(bayAreaCountiesTimeSeries, (series)=>{return sortBy(series, ["x"]);})
+  console.log(sortedBayAreaCountiesTimeSeries);
+  let id = 0;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {map(sortedBayAreaCountiesTimeSeries, (series, name)=>{
+        id++;
+        const options = {
+          title: {
+            text: name
+          },
+          chart: {
+            zoomType: 'x'
+          },
+          xAxis: {
+            labels: {
+              format: '{value:%y-%m-%e}'
+            },
+          },          
+          series: [{
+            data: series
+          }]          
+        }
+        return (<HighchartsReact
+          key={id}
+          highcharts={Highcharts}
+          options={options}
+          />)
+      })}
     </div>
   );
 }
