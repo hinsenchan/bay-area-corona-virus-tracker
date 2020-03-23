@@ -70,6 +70,8 @@ function App() {
           options={options}
           />)
       })}
+      <div>Created by Hinsen Chan</div>
+      <div>https://github.com/hinsenchan</div>
     </div>
   );
 }
