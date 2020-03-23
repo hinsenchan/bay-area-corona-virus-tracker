@@ -57,7 +57,7 @@ function App() {
           },
           xAxis: {
             labels: {
-              format: '{value:%y-%m-%e}'
+              format: '{value:%m-%d}'
             },
           },          
           series: [{
