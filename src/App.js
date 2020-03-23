@@ -2,7 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+async function fetchData() {
+  const response = await fetch("https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json");
+  const payload = await response.json();
+  console.log(payload);
+}
+
 function App() {
+  fetchData()
   return (
     <div className="App">
       <header className="App-header">
