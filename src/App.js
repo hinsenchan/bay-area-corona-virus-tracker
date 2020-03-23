@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {isEmpty} from "lodash";
+import {isEmpty, isEqual, keyBy, map, mapValues, omit, toNumber} from "lodash";
 import moment from "moment";
 import store from "store2";
 import logo from './logo.svg';
@@ -29,14 +29,18 @@ function getStoreData(key) {
 
 function App() {
   const key = moment().format("YYYY-MM-DD");
-  const storeData = getStoreData(key) || {};
+  const storeData = getStoreData(key) || [];
   const [data, setData] = useState(storeData);
 
   useEffect(() => {
     fetchAndStore(key, data, setData);
   }, [key, data]);
 
-  console.log(data);
+  const bayAreaCounties = data.filter((county)=>isEqual(county["BAY AREA"], "YES"));
+  const bayAreaCountiesDataSet = keyBy(bayAreaCounties, (county)=>`${county["GEOGRAPHY"]} ${county["CATEGORY"]}`);
+  const bayAreaCountiesTimeSeriesObj = mapValues(bayAreaCountiesDataSet, (county)=>{return omit(county, ["ROW", "GEOGRAPHY", "BAY AREA", "CATEGORY", "TOTALS"]);});
+  const bayAreaCountiesTimeSeries = mapValues(bayAreaCountiesTimeSeriesObj, (county)=>{return map(county, (value, key)=>{return {x: moment(key).valueOf(), y: toNumber(value)}})})
+  console.log(bayAreaCountiesTimeSeries);
 
   return (
     <div className="App">
