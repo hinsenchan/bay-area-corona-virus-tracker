@@ -152,7 +152,8 @@ function App() {
         <title>Bay Area Corona Virus Tracker</title>
         <meta
           name="description"
-          content="Track corona virus growth rates across Bay Area counties. Let's flatten the curve together!"
+          content="Monitor corona virus growth rates across Bay Area counties. Keep your
+          friends and family informed. Let's flatten the curve together!"
         />
         <link
           rel="canonical"
@@ -161,7 +162,7 @@ function App() {
       </Helmet>
       <h1>Bay Area Corona Virus Tracker</h1>
       <p>
-        Monitor corona virus growth rates across Bay Area counties. Keey your
+        Monitor corona virus growth rates across Bay Area counties. Keep your
         friends and family informed. Let's flatten the curve together!
       </p>
       {map(
