@@ -150,6 +150,10 @@ function App() {
     <div className="App">
       <Helmet>
         <title>Bay Area Corona Virus Tracker</title>
+        <meta
+          name="description"
+          content="Track corona virus growth rates across Bay Area counties. Let's flatten the curve together!"
+        />
       </Helmet>
       {map(
         newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
