@@ -154,6 +154,10 @@ function App() {
           name="description"
           content="Track corona virus growth rates across Bay Area counties. Let's flatten the curve together!"
         />
+        <link
+          rel="canonical"
+          href="https://bay-area-corona-virus-tracker.firebaseapp.com/"
+        />
       </Helmet>
       {map(
         newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
