@@ -4,10 +4,13 @@ import HighchartsReact from "highcharts-react-official";
 import {
   isEmpty,
   isEqual,
+  forEach,
+  groupBy,
   keyBy,
   map,
   mapValues,
   omit,
+  replace,
   sortBy,
   toNumber
 } from "lodash";
@@ -97,11 +100,28 @@ function App() {
       return sortBy(series, ["x"]);
     }
   );
-  console.log(sortedBayAreaCountiesTimeSeries);
+  const sortedBayAreaCountiesTimeSeriesObj = map(
+    sortedBayAreaCountiesTimeSeries,
+    (value, key) => {
+      return { name: key, data: value };
+    }
+  );
+  const groupedSortedBayAreaCountiesTimeSeriesObj = groupBy(
+    sortedBayAreaCountiesTimeSeriesObj,
+    county => {
+      let key = county.name;
+      forEach(
+        [" cases", " deaths"],
+        suffix => (key = replace(key, suffix, ""))
+      );
+      return key;
+    }
+  );
+
   let id = 0;
   return (
     <div className="App">
-      {map(sortedBayAreaCountiesTimeSeries, (series, name) => {
+      {map(groupedSortedBayAreaCountiesTimeSeriesObj, (series, name) => {
         id++;
         const options = {
           title: {
@@ -119,11 +139,7 @@ function App() {
           tooltip: {
             xDateFormat: "%m-%d"
           },
-          series: [
-            {
-              data: series
-            }
-          ]
+          series: series
         };
         return (
           <HighchartsReact key={id} highcharts={Highcharts} options={options} />
