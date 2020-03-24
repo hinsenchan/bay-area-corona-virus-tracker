@@ -159,6 +159,22 @@ function App() {
           rel="canonical"
           href="https://bay-area-corona-virus-tracker.firebaseapp.com/"
         />
+        <meta property="og:title" content="Bay Area Corona Virus Tracker" />
+        <meta
+          property="og:description"
+          content="Monitor corona virus growth rates across Bay Area counties. Keep your
+          friends and family informed. Let's flatten the curve together!"
+        />
+        <meta
+          property="og:url"
+          content="https://bay-area-corona-virus-tracker.firebaseapp.com/"
+        />
+        <meta name="twitter:title" content="Bay Area Corona Virus Tracker" />
+        <meta
+          name="twitter:description"
+          content="Monitor corona virus growth rates across Bay Area counties. Keep your
+          friends and family informed. Let's flatten the curve together!"
+        />
       </Helmet>
       <h1>Bay Area Corona Virus Tracker</h1>
       <p>
