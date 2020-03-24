@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import {
+  cloneDeep,
+  concat,
   isEmpty,
   isEqual,
   forEach,
@@ -117,34 +119,65 @@ function App() {
       return key;
     }
   );
+  const clonedGroupedSortedBayAreaCountiesTimeSeriesObj = cloneDeep(
+    groupedSortedBayAreaCountiesTimeSeriesObj
+  );
+  const totalGroupedSortedBayAreaCountiesTimeSeriesObj = mapValues(
+    clonedGroupedSortedBayAreaCountiesTimeSeriesObj,
+    seriesArray => {
+      return map(seriesArray, series => {
+        let count = 0;
+        series.name = `${series.name} total`;
+        series.data = map(series.data, timeSeriesObj => {
+          timeSeriesObj.y = count += timeSeriesObj.y;
+          return timeSeriesObj;
+        });
+        return series;
+      });
+    }
+  );
+  const newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj = mapValues(
+    totalGroupedSortedBayAreaCountiesTimeSeriesObj,
+    (series, name) => {
+      series = concat(series, groupedSortedBayAreaCountiesTimeSeriesObj[name]);
+      return series;
+    }
+  );
 
   let id = 0;
   return (
     <div className="App">
-      {map(groupedSortedBayAreaCountiesTimeSeriesObj, (series, name) => {
-        id++;
-        const options = {
-          title: {
-            text: name
-          },
-          chart: {
-            zoomType: "x"
-          },
-          xAxis: {
-            labels: {
-              format: "{value:%m-%d}"
+      {map(
+        newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
+        (series, name) => {
+          id++;
+          const options = {
+            title: {
+              text: name
             },
-            type: "datetime"
-          },
-          tooltip: {
-            xDateFormat: "%m-%d"
-          },
-          series: series
-        };
-        return (
-          <HighchartsReact key={id} highcharts={Highcharts} options={options} />
-        );
-      })}
+            chart: {
+              zoomType: "x"
+            },
+            xAxis: {
+              labels: {
+                format: "{value:%m-%d}"
+              },
+              type: "datetime"
+            },
+            tooltip: {
+              xDateFormat: "%m-%d"
+            },
+            series: series
+          };
+          return (
+            <HighchartsReact
+              key={id}
+              highcharts={Highcharts}
+              options={options}
+            />
+          );
+        }
+      )}
       <div>Created by Hinsen Chan</div>
       <a
         href="https://github.com/hinsenchan"
