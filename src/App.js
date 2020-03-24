@@ -149,7 +149,7 @@ function App() {
   return (
     <div className="App">
       <Helmet>
-        <title>Bay Area Corona Virus Tracker</title>
+        <title>Bay Area Corona Virus Tracker - alpha</title>
         <meta
           name="description"
           content="Monitor corona virus growth rates across Bay Area counties. Keep your
@@ -159,7 +159,10 @@ function App() {
           rel="canonical"
           href="https://bay-area-corona-virus-tracker.firebaseapp.com/"
         />
-        <meta property="og:title" content="Bay Area Corona Virus Tracker" />
+        <meta
+          property="og:title"
+          content="Bay Area Corona Virus Tracker - alpha"
+        />
         <meta
           property="og:description"
           content="Monitor corona virus growth rates across Bay Area counties. Keep your
@@ -169,14 +172,17 @@ function App() {
           property="og:url"
           content="https://bay-area-corona-virus-tracker.firebaseapp.com/"
         />
-        <meta name="twitter:title" content="Bay Area Corona Virus Tracker" />
+        <meta
+          name="twitter:title"
+          content="Bay Area Corona Virus Tracker - alpha"
+        />
         <meta
           name="twitter:description"
           content="Monitor corona virus growth rates across Bay Area counties. Keep your
           friends and family informed. Let's flatten the curve together!"
         />
       </Helmet>
-      <h1>Bay Area Corona Virus Tracker</h1>
+      <h1>Bay Area Corona Virus Tracker - alpha</h1>
       <p>
         Monitor corona virus growth rates across Bay Area counties. Keep your
         friends and family informed. Let's flatten the curve together!
