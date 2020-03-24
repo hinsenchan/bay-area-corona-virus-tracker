@@ -1,12 +1,21 @@
-import React, {useState, useEffect} from 'react';
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import {isEmpty, isEqual, keyBy, map, mapValues, omit, sortBy, toNumber} from "lodash";
+import React, { useState, useEffect } from "react";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import {
+  isEmpty,
+  isEqual,
+  keyBy,
+  map,
+  mapValues,
+  omit,
+  sortBy,
+  toNumber
+} from "lodash";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import store from "store2";
-import './App.css';
+import "./App.css";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOs83YSuTuIKk-Zob_QFw49IM6_k-AM3w",
@@ -23,7 +32,9 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 async function fetchAPIData() {
-  const response = await fetch("https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json");
+  const response = await fetch(
+    "https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json"
+  );
   const payload = await response.json();
   return payload;
 }
@@ -53,45 +64,79 @@ function App() {
     fetchAndStore(key, data, setData);
   }, [key, data]);
 
-  const bayAreaCounties = data.filter((county)=>isEqual(county["BAY AREA"], "YES"));
-  const bayAreaCountiesDataSet = keyBy(bayAreaCounties, (county)=>`${county["GEOGRAPHY"]} ${county["CATEGORY"]}`);
-  const bayAreaCountiesTimeSeriesObj = mapValues(bayAreaCountiesDataSet, (county)=>{return omit(county, ["ROW", "GEOGRAPHY", "BAY AREA", "CATEGORY", "TOTALS"]);});
-  const bayAreaCountiesTimeSeries = mapValues(bayAreaCountiesTimeSeriesObj, (county)=>{return map(county, (value, key)=>{return {x: moment(key).valueOf(), y: toNumber(value)}})})
-  const sortedBayAreaCountiesTimeSeries = mapValues(bayAreaCountiesTimeSeries, (series)=>{return sortBy(series, ["x"]);})
+  const bayAreaCounties = data.filter(county =>
+    isEqual(county["BAY AREA"], "YES")
+  );
+  const bayAreaCountiesDataSet = keyBy(
+    bayAreaCounties,
+    county => `${county["GEOGRAPHY"]} ${county["CATEGORY"]}`
+  );
+  const bayAreaCountiesTimeSeriesObj = mapValues(
+    bayAreaCountiesDataSet,
+    county => {
+      return omit(county, [
+        "ROW",
+        "GEOGRAPHY",
+        "BAY AREA",
+        "CATEGORY",
+        "TOTALS"
+      ]);
+    }
+  );
+  const bayAreaCountiesTimeSeries = mapValues(
+    bayAreaCountiesTimeSeriesObj,
+    county => {
+      return map(county, (value, key) => {
+        return { x: moment(key).valueOf(), y: toNumber(value) };
+      });
+    }
+  );
+  const sortedBayAreaCountiesTimeSeries = mapValues(
+    bayAreaCountiesTimeSeries,
+    series => {
+      return sortBy(series, ["x"]);
+    }
+  );
   console.log(sortedBayAreaCountiesTimeSeries);
   let id = 0;
   return (
     <div className="App">
-      {map(sortedBayAreaCountiesTimeSeries, (series, name)=>{
+      {map(sortedBayAreaCountiesTimeSeries, (series, name) => {
         id++;
         const options = {
           title: {
             text: name
           },
           chart: {
-            zoomType: 'x'
+            zoomType: "x"
           },
           xAxis: {
             labels: {
-              format: '{value:%m-%d}'
+              format: "{value:%m-%d}"
             },
-            type: 'datetime'
-          },          
-          tooltip: {
-            xDateFormat: '%m-%d',
+            type: "datetime"
           },
-          series: [{
-            data: series
-          }]          
-        }
-        return (<HighchartsReact
-          key={id}
-          highcharts={Highcharts}
-          options={options}
-          />)
+          tooltip: {
+            xDateFormat: "%m-%d"
+          },
+          series: [
+            {
+              data: series
+            }
+          ]
+        };
+        return (
+          <HighchartsReact key={id} highcharts={Highcharts} options={options} />
+        );
       })}
       <div>Created by Hinsen Chan</div>
-      <a href="https://github.com/hinsenchan" target="_blank" rel="noopener noreferrer">https://github.com/hinsenchan</a>
+      <a
+        href="https://github.com/hinsenchan"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        https://github.com/hinsenchan
+      </a>
     </div>
   );
 }
