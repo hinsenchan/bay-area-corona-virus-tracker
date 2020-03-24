@@ -159,6 +159,11 @@ function App() {
           href="https://bay-area-corona-virus-tracker.firebaseapp.com/"
         />
       </Helmet>
+      <h1>Bay Area Corona Virus Tracker</h1>
+      <p>
+        Monitor corona virus growth rates across Bay Area counties. Keey your
+        friends and family informed. Let's flatten the curve together!
+      </p>
       {map(
         newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
         (series, name) => {
