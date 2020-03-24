@@ -170,11 +170,19 @@ function App() {
             chart: {
               zoomType: "x"
             },
+            credits: {
+              enabled: false
+            },
             xAxis: {
               labels: {
                 format: "{value:%m-%d}"
               },
               type: "datetime"
+            },
+            yAxis: {
+              title: {
+                enabled: false
+              }
             },
             tooltip: {
               xDateFormat: "%m-%d"
