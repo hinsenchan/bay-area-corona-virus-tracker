@@ -74,7 +74,7 @@ function App() {
   );
   const bayAreaCountiesDataSet = keyBy(
     bayAreaCounties,
-    county => `${county["GEOGRAPHY"]} ${county["CATEGORY"]}`
+    county => `${county["GEOGRAPHY"]} new ${county["CATEGORY"]}`
   );
   const bayAreaCountiesTimeSeriesObj = mapValues(
     bayAreaCountiesDataSet,
@@ -113,7 +113,7 @@ function App() {
     county => {
       let key = county.name;
       forEach(
-        [" cases", " deaths"],
+        [" new cases", " new deaths"],
         suffix => (key = replace(key, suffix, ""))
       );
       return key;
@@ -127,7 +127,7 @@ function App() {
     seriesArray => {
       return map(seriesArray, series => {
         let count = 0;
-        series.name = `${series.name} total`;
+        series.name = replace(series.name, " new", " total");
         series.data = map(series.data, timeSeriesObj => {
           timeSeriesObj.y = count += timeSeriesObj.y;
           return timeSeriesObj;
