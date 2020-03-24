@@ -18,6 +18,7 @@ import {
 } from "lodash";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
+import { Helmet } from "react-helmet";
 import moment from "moment";
 import store from "store2";
 import "./App.css";
@@ -147,6 +148,9 @@ function App() {
   let id = 0;
   return (
     <div className="App">
+      <Helmet>
+        <title>Bay Area Corona Virus Tracker</title>
+      </Helmet>
       {map(
         newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
         (series, name) => {
