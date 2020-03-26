@@ -197,13 +197,6 @@ function App() {
               type: "line",
               zoomType: "x"
             },
-            plotOptions: {
-              series: {
-                marker: {
-                  enabled: true
-                }
-              }
-            },
             xAxis: {
               labels: {
                 format: "{value:%m-%d}"
