@@ -214,7 +214,8 @@ function App() {
           </span>
         </p>
         <p>
-          <div>Created by Hinsen Chan</div>
+          <span>Created by Hinsen Chan</span>
+          <br />
           <a
             href="https://github.com/hinsenchan"
             target="_blank"
