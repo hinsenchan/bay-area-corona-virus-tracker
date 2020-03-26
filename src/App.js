@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Highcharts from "highcharts";
+import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import {
   cloneDeep,
@@ -144,6 +144,39 @@ function App() {
     }
   );
 
+  const NOTABLE_EVENTS = [
+    {
+      type: "flags",
+      name: "Notable Events",
+      shape: "circlepin",
+      data: [
+        {
+          x: moment("2020-03-16").valueOf(),
+          title: "E",
+          text: "Bay Area orders Shelter in Place"
+        },
+        {
+          x: moment("2020-03-19").valueOf(),
+          title: "E",
+          text: "California orders Stay at Home"
+        },
+        {
+          x: moment("2020-03-24").valueOf(),
+          title: "E",
+          text: "California closes vehicular traffic to state parks"
+        }
+      ]
+    }
+  ];
+
+  const newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags = mapValues(
+    newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
+    (series, name) => {
+      series = concat(series, NOTABLE_EVENTS);
+      return series;
+    }
+  );
+
   let id = 0;
   return (
     <div className="App">
@@ -153,7 +186,7 @@ function App() {
         friends and family informed. Let's flatten the curve together!
       </p>
       {map(
-        newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
+        newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
         (series, name) => {
           id++;
           const options = {
@@ -161,10 +194,15 @@ function App() {
               text: name
             },
             chart: {
+              type: "line",
               zoomType: "x"
             },
-            credits: {
-              enabled: false
+            plotOptions: {
+              series: {
+                marker: {
+                  enabled: true
+                }
+              }
             },
             xAxis: {
               labels: {
@@ -175,7 +213,23 @@ function App() {
             yAxis: {
               title: {
                 enabled: false
-              }
+              },
+              min: 0
+            },
+            credits: {
+              enabled: false
+            },
+            legend: {
+              enabled: true
+            },
+            navigator: {
+              enabled: false
+            },
+            rangeSelector: {
+              enabled: false
+            },
+            scrollbar: {
+              enabled: false
             },
             tooltip: {
               xDateFormat: "%m-%d"
@@ -186,6 +240,7 @@ function App() {
             <HighchartsReact
               key={id}
               highcharts={Highcharts}
+              constructorType={"stockChart"}
               options={options}
             />
           );
