@@ -151,6 +151,11 @@ function App() {
       shape: "circlepin",
       data: [
         {
+          x: moment("2020-03-11").valueOf(),
+          title: "E",
+          text: "WHO declares COVID 19 a pandemic."
+        },
+        {
           x: moment("2020-03-16").valueOf(),
           title: "E",
           text: "Bay Area orders Shelter in Place"
