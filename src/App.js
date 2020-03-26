@@ -92,7 +92,7 @@ function App() {
     bayAreaCountiesTimeSeriesObj,
     county => {
       return map(county, (value, key) => {
-        return { x: moment(key).valueOf(), y: toNumber(value) };
+        return { x: moment(key, "MM-DD-YYYY").valueOf(), y: toNumber(value) };
       });
     }
   );
