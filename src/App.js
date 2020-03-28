@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import {
@@ -7,10 +7,14 @@ import {
   isEmpty,
   isEqual,
   forEach,
+  get,
   groupBy,
+  isNumber,
   keyBy,
+  last,
   map,
   mapValues,
+  nth,
   omit,
   replace,
   sortBy,
@@ -216,12 +220,65 @@ function App() {
   );
 
   const [granularity, setGranularity] = useState("month");
+  const [aggregator, setAggregator] = useState("multiples");
 
   const startDateTime = GRANULARITY_DATETIME[granularity];
 
   const handleGranularity = (event, newGranularity) => {
     setGranularity(newGranularity);
   };
+
+  const handleAggregator = (event, newAggregator) => {
+    setAggregator(newAggregator);
+  };
+
+  const countyWithMultiples = mapValues(
+    newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
+    (series, name) => {
+      return map(series, series => {
+        if (isEqual(series.type, "flags")) {
+          return series;
+        }
+        const now = last(series.data) || {};
+        const week = nth(series.data, -7) || {};
+        const month = nth(series.data, -30) || {};
+        let weekMultiple;
+        let monthMultiple;
+        if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
+          weekMultiple = now.y / week.y;
+        }
+        if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
+          monthMultiple = now.y / month.y;
+        }
+        series.multiples = { week: weekMultiple, month: monthMultiple };
+        return series;
+      });
+    }
+  );
+
+  const countyWithGrowthRates = mapValues(
+    countyWithMultiples,
+    (series, name) => {
+      return map(series, series => {
+        if (isEqual(series.type, "flags")) {
+          return series;
+        }
+        const now = last(series.data) || {};
+        const week = nth(series.data, -6) || {};
+        const month = nth(series.data, -29) || {};
+        let weekGrowthRate;
+        let monthGrowthRate;
+        if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
+          weekGrowthRate = (now.y - week.y) / week.y;
+        }
+        if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
+          monthGrowthRate = (now.y - month.y) / month.y;
+        }
+        series.growthRates = { week: weekGrowthRate, month: monthGrowthRate };
+        return series;
+      });
+    }
+  );
 
   let id = 0;
   return (
@@ -253,55 +310,81 @@ function App() {
               YTD
             </ToggleButton>
           </ToggleButtonGroup>
+
+          <ToggleButtonGroup
+            value={aggregator}
+            exclusive
+            onChange={handleAggregator}
+            aria-label="aggregator"
+          >
+            <ToggleButton value="growthRates" aria-label="growthRates">
+              Growth Rate
+            </ToggleButton>
+            <ToggleButton value="multiples" aria-label="multiples">
+              Multiple
+            </ToggleButton>
+          </ToggleButtonGroup>
         </StyledCardActions>
       </StyledCard>
 
-      {map(
-        newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
-        (series, name) => {
-          id++;
-          const options = {
+      {map(countyWithGrowthRates, (series, name) => {
+        id++;
+        const options = {
+          title: {
+            text: name
+          },
+          chart: {
+            type: "line",
+            zoomType: "x"
+          },
+          xAxis: {
+            floor: startDateTime,
+            labels: {
+              format: "{value:%m-%d}"
+            },
+            type: "datetime"
+          },
+          yAxis: {
             title: {
-              text: name
-            },
-            chart: {
-              type: "line",
-              zoomType: "x"
-            },
-            xAxis: {
-              floor: startDateTime,
-              labels: {
-                format: "{value:%m-%d}"
-              },
-              type: "datetime"
-            },
-            yAxis: {
-              title: {
-                enabled: false
-              },
-              min: 0
-            },
-            credits: {
               enabled: false
             },
-            legend: {
-              enabled: true
-            },
-            navigator: {
-              enabled: false
-            },
-            rangeSelector: {
-              enabled: false
-            },
-            scrollbar: {
-              enabled: false
-            },
-            tooltip: {
-              xDateFormat: "%m-%d"
-            },
-            series: series
-          };
-          return (
+            min: 0
+          },
+          credits: {
+            enabled: false
+          },
+          legend: {
+            enabled: true
+          },
+          navigator: {
+            enabled: false
+          },
+          rangeSelector: {
+            enabled: false
+          },
+          scrollbar: {
+            enabled: false
+          },
+          tooltip: {
+            xDateFormat: "%m-%d"
+          },
+          series: series
+        };
+        return (
+          <Fragment key={`${id}_foo`}>
+            {map(series, series => {
+              if (isEqual(series.name, "Notable Events")) {
+                return;
+              }
+              return (
+                <div key={`${series.name}_${aggregator}_${granularity}`}>
+                  <div>{`${series.name} ${aggregator}`}</div>
+                  <div>
+                    {get(series, `${aggregator}.${granularity}`, "N/A")}
+                  </div>
+                </div>
+              );
+            })}
             <ChartWrapper key={id}>
               <HighchartsReact
                 highcharts={Highcharts}
@@ -309,9 +392,9 @@ function App() {
                 options={options}
               />
             </ChartWrapper>
-          );
-        }
-      )}
+          </Fragment>
+        );
+      })}
       <Typography align="center" variant="caption" component="h6">
         <p>
           <span>
