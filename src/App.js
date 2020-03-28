@@ -20,7 +20,6 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import store from "store2";
-import "./App.css";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOs83YSuTuIKk-Zob_QFw49IM6_k-AM3w",
