@@ -20,6 +20,8 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import store from "store2";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOs83YSuTuIKk-Zob_QFw49IM6_k-AM3w",
@@ -58,6 +60,16 @@ function setStoreData(key, payload) {
 function getStoreData(key) {
   return store.get(key);
 }
+
+const GRANULARITY_DATETIME = {
+  week: moment()
+    .subtract(7, "days")
+    .valueOf(),
+  month: moment()
+    .subtract(30, "days")
+    .valueOf(),
+  year: moment("01-25-2020").valueOf()
+};
 
 function App() {
   const key = moment().format("YYYY-MM-DD");
@@ -181,6 +193,14 @@ function App() {
     }
   );
 
+  const [granularity, setGranularity] = useState("month");
+
+  const startDateTime = GRANULARITY_DATETIME[granularity];
+
+  const handleGranularity = (event, newGranularity) => {
+    setGranularity(newGranularity);
+  };
+
   let id = 0;
   return (
     <div className="App">
@@ -189,6 +209,24 @@ function App() {
         Monitor corona virus growth rates across Bay Area counties. Keep your
         friends and family informed. Let's flatten the curve together!
       </p>
+      <div>
+        <ToggleButtonGroup
+          value={granularity}
+          exclusive
+          onChange={handleGranularity}
+          aria-label="granularity"
+        >
+          <ToggleButton value="week" aria-label="week">
+            Week
+          </ToggleButton>
+          <ToggleButton value="month" aria-label="month">
+            Month
+          </ToggleButton>
+          <ToggleButton value="year" aria-label="year">
+            YTD
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
       {map(
         newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
         (series, name) => {
@@ -202,6 +240,7 @@ function App() {
               zoomType: "x"
             },
             xAxis: {
+              floor: startDateTime,
               labels: {
                 format: "{value:%m-%d}"
               },
