@@ -342,20 +342,23 @@ function App() {
               YTD
             </ToggleButton>
           </StyledToggleButtonGroup>
-
-          <ToggleButtonGroup
-            value={aggregator}
-            exclusive
-            onChange={handleAggregator}
-            aria-label="aggregator"
-          >
-            <ToggleButton value="growthRates" aria-label="growthRates">
-              Growth Rate
-            </ToggleButton>
-            <ToggleButton value="multiples" aria-label="multiples">
-              Multiple
-            </ToggleButton>
-          </ToggleButtonGroup>
+          {isEqual(granularity, "year") ? (
+            ""
+          ) : (
+            <ToggleButtonGroup
+              value={aggregator}
+              exclusive
+              onChange={handleAggregator}
+              aria-label="aggregator"
+            >
+              <ToggleButton value="growthRates" aria-label="growthRates">
+                Growth Rate
+              </ToggleButton>
+              <ToggleButton value="multiples" aria-label="multiples">
+                Multiple
+              </ToggleButton>
+            </ToggleButtonGroup>
+          )}
         </StyledCardActions>
       </StyledCard>
 
@@ -407,6 +410,9 @@ function App() {
             <StyledAggregatorContainer>
               {map(series, series => {
                 if (isEqual(series.name, "Notable Events")) {
+                  return;
+                }
+                if (isEqual(granularity, "year")) {
                   return;
                 }
                 return (
