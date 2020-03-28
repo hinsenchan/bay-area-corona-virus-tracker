@@ -45,8 +45,18 @@ const StyledCardActions = styled(CardActions)`
   justify-content: center;
 `;
 
+const StyledCountyContainer = styled.div`
+  display: flex;
+`;
+const StyledAggregatorContainer = styled.div``;
+
+const StyledAggregatorCard = styled(Card)`
+  max-width: 175px;
+`;
+
 const ChartWrapper = styled.div`
   margin-bottom: 16px;
+  flex-grow: 1;
 `;
 
 const firebaseConfig = {
@@ -264,8 +274,8 @@ function App() {
           return series;
         }
         const now = last(series.data) || {};
-        const week = nth(series.data, -6) || {};
-        const month = nth(series.data, -29) || {};
+        const week = nth(series.data, -7) || {};
+        const month = nth(series.data, -30) || {};
         let weekGrowthRate;
         let monthGrowthRate;
         if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
@@ -371,20 +381,29 @@ function App() {
           series: series
         };
         return (
-          <Fragment key={`${id}_foo`}>
-            {map(series, series => {
-              if (isEqual(series.name, "Notable Events")) {
-                return;
-              }
-              return (
-                <div key={`${series.name}_${aggregator}_${granularity}`}>
-                  <div>{`${series.name} ${aggregator}`}</div>
-                  <div>
-                    {get(series, `${aggregator}.${granularity}`, "N/A")}
-                  </div>
-                </div>
-              );
-            })}
+          <StyledCountyContainer key={`${id}_foo`}>
+            <StyledAggregatorContainer>
+              {map(series, series => {
+                if (isEqual(series.name, "Notable Events")) {
+                  return;
+                }
+                return (
+                  <StyledAggregatorCard
+                    key={`${series.name}_${aggregator}_${granularity}`}
+                    variant="outlined"
+                  >
+                    <CardContent>
+                      <Typography color="textSecondary" gutterBottom>
+                        {series.name}
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {get(series, `${aggregator}.${granularity}`, "N/A")}
+                      </Typography>
+                    </CardContent>
+                  </StyledAggregatorCard>
+                );
+              })}
+            </StyledAggregatorContainer>
             <ChartWrapper key={id}>
               <HighchartsReact
                 highcharts={Highcharts}
@@ -392,7 +411,7 @@ function App() {
                 options={options}
               />
             </ChartWrapper>
-          </Fragment>
+          </StyledCountyContainer>
         );
       })}
       <Typography align="center" variant="caption" component="h6">
