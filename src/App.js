@@ -54,13 +54,26 @@ const StyledCardActions = styled(CardActions)`
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)``;
 
-const StyledCountyContainer = styled.div`
+const StyledCountyContainer = styled.div``;
+const StyledAggregatorContainer = styled.div`
   display: flex;
+  margin-bottom: 16px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
 `;
-const StyledAggregatorContainer = styled.div``;
 
 const StyledAggregatorCard = styled(Card)`
+  margin-right: 8px;
   max-width: 175px;
+
+  @media screen and (max-width: 600px) {
+    margin-right: 0;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
 `;
 
 const ChartWrapper = styled.div`
