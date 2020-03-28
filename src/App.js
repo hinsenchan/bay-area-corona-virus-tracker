@@ -43,8 +43,16 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledCardActions = styled(CardActions)`
-  justify-content: center;
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+
+    & div:first-child {
+      margin-bottom: 16px;
+    }
+  }
 `;
+
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)``;
 
 const StyledCountyContainer = styled.div`
   display: flex;
@@ -305,7 +313,7 @@ function App() {
           </Typography>
         </CardContent>
         <StyledCardActions>
-          <ToggleButtonGroup
+          <StyledToggleButtonGroup
             value={granularity}
             exclusive
             onChange={handleGranularity}
@@ -320,7 +328,7 @@ function App() {
             <ToggleButton value="year" aria-label="year">
               YTD
             </ToggleButton>
-          </ToggleButtonGroup>
+          </StyledToggleButtonGroup>
 
           <ToggleButtonGroup
             value={aggregator}
