@@ -41,6 +41,10 @@ const StyledCardActions = styled(CardActions)`
   justify-content: center;
 `;
 
+const ChartWrapper = styled.div`
+  margin-bottom: 16px;
+`;
+
 const firebaseConfig = {
   apiKey: "AIzaSyAOs83YSuTuIKk-Zob_QFw49IM6_k-AM3w",
   authDomain: "bay-area-corona-virus-tracker.firebaseapp.com",
@@ -298,12 +302,13 @@ function App() {
             series: series
           };
           return (
-            <HighchartsReact
-              key={id}
-              highcharts={Highcharts}
-              constructorType={"stockChart"}
-              options={options}
-            />
+            <ChartWrapper key={id}>
+              <HighchartsReact
+                highcharts={Highcharts}
+                constructorType={"stockChart"}
+                options={options}
+              />
+            </ChartWrapper>
           );
         }
       )}
