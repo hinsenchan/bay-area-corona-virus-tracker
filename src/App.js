@@ -20,8 +20,26 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import store from "store2";
+import { Container } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import styled from "styled-components/macro";
+
+const StyledContainer = styled(Container)`
+  background: white;
+`;
+
+const StyledCard = styled(Card)`
+  margin-bottom: 24px;
+`;
+
+const StyledCardActions = styled(CardActions)`
+  justify-content: center;
+`;
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOs83YSuTuIKk-Zob_QFw49IM6_k-AM3w",
@@ -68,7 +86,7 @@ const GRANULARITY_DATETIME = {
   month: moment()
     .subtract(30, "days")
     .valueOf(),
-  year: moment("01-25-2020").valueOf()
+  year: moment("2020-01-25").valueOf()
 };
 
 function App() {
@@ -203,30 +221,37 @@ function App() {
 
   let id = 0;
   return (
-    <div className="App">
-      <h1>Bay Area Corona Virus Tracker - alpha</h1>
-      <p>
-        Monitor corona virus growth rates across Bay Area counties. Keep your
-        friends and family informed. Let's flatten the curve together!
-      </p>
-      <div>
-        <ToggleButtonGroup
-          value={granularity}
-          exclusive
-          onChange={handleGranularity}
-          aria-label="granularity"
-        >
-          <ToggleButton value="week" aria-label="week">
-            Week
-          </ToggleButton>
-          <ToggleButton value="month" aria-label="month">
-            Month
-          </ToggleButton>
-          <ToggleButton value="year" aria-label="year">
-            YTD
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </div>
+    <StyledContainer>
+      <StyledCard elevation={0}>
+        <CardContent>
+          <Typography gutterBottom variant="h4" component="h1">
+            Bay Area Corona Virus Tracker - alpha
+          </Typography>
+          <Typography variant="body1" color="textSecondary" component="p">
+            Monitor corona virus growth rates across Bay Area counties. Keep
+            your friends and family informed. Let's flatten the curve together!
+          </Typography>
+        </CardContent>
+        <StyledCardActions>
+          <ToggleButtonGroup
+            value={granularity}
+            exclusive
+            onChange={handleGranularity}
+            aria-label="granularity"
+          >
+            <ToggleButton value="week" aria-label="week">
+              Week
+            </ToggleButton>
+            <ToggleButton value="month" aria-label="month">
+              Month
+            </ToggleButton>
+            <ToggleButton value="year" aria-label="year">
+              YTD
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </StyledCardActions>
+      </StyledCard>
+
       {map(
         newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
         (series, name) => {
@@ -282,7 +307,7 @@ function App() {
           );
         }
       )}
-      <h6>
+      <Typography align="center" variant="caption" component="h6">
         <p>
           <span>
             The time series data on this page is sourced from SF
@@ -315,8 +340,8 @@ function App() {
             https://github.com/hinsenchan
           </a>
         </p>
-      </h6>
-    </div>
+      </Typography>
+    </StyledContainer>
   );
 }
 
