@@ -17,6 +17,7 @@ import {
   nth,
   omit,
   replace,
+  round,
   sortBy,
   toNumber
 } from "lodash";
@@ -255,10 +256,10 @@ function App() {
         let weekMultiple;
         let monthMultiple;
         if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
-          weekMultiple = now.y / week.y;
+          weekMultiple = `${round(now.y / week.y, 2)}x`;
         }
         if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
-          monthMultiple = now.y / month.y;
+          monthMultiple = `${round(now.y / month.y, 2)}x`;
         }
         series.multiples = { week: weekMultiple, month: monthMultiple };
         return series;
@@ -279,10 +280,10 @@ function App() {
         let weekGrowthRate;
         let monthGrowthRate;
         if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
-          weekGrowthRate = (now.y - week.y) / week.y;
+          weekGrowthRate = `${round(((now.y - week.y) / week.y) * 100, 2)}%`;
         }
         if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
-          monthGrowthRate = (now.y - month.y) / month.y;
+          monthGrowthRate = `${round(((now.y - month.y) / month.y) * 100, 2)}%`;
         }
         series.growthRates = { week: weekGrowthRate, month: monthGrowthRate };
         return series;
