@@ -17,6 +17,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "store2": "^2.10.0",
+    "styled-components": "^5.0.1",
     "typeface-roboto": "^0.0.75"
   },
   "scripts": {
