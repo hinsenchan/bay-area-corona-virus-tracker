@@ -411,6 +411,12 @@ function App() {
 
       {map(transformedCountiesData, (series, name) => {
         id++;
+        series = map(series, series => {
+          const isActive = startsWith(series.category, category);
+          series.visible = isActive;
+          series.showInLegend = isActive;
+          return series;
+        });
         const options = {
           chart: {
             type: "line",
