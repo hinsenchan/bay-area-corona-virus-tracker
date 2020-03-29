@@ -40,6 +40,7 @@ import styled from "styled-components/macro";
 
 const StyledContainer = styled(Container)`
   background: white;
+  margin-bottom: 80px;
 `;
 
 const StyledBox = styled(Box)`
