@@ -21,7 +21,8 @@ import {
   sortBy,
   startCase,
   startsWith,
-  toNumber
+  toNumber,
+  trimEnd
 } from "lodash";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
@@ -503,6 +504,9 @@ function App() {
                       </Typography>
                       <Typography variant="h5" component="h3">
                         {get(series, `${aggregator}.${granularity}`, "N/A")}
+                      </Typography>
+                      <Typography variant="caption" color="textSecondary">
+                        {startCase(trimEnd(aggregator, "s"))}
                       </Typography>
                     </CardContent>
                   </StyledAggregatorCard>
