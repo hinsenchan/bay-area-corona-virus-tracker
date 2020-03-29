@@ -20,6 +20,7 @@ import {
   round,
   sortBy,
   startCase,
+  startsWith,
   toNumber
 } from "lodash";
 import * as firebase from "firebase/app";
@@ -264,7 +265,7 @@ function App() {
   );
 
   const [granularity, setGranularity] = useState("month");
-  const [category, setCategory] = useState("total");
+  const [category, setCategory] = useState("Total");
   const [aggregator, setAggregator] = useState("multiples");
 
   const startDateTime = GRANULARITY_DATETIME[granularity];
@@ -381,10 +382,10 @@ function App() {
             onChange={handleCategory}
             aria-label="category"
           >
-            <ToggleButton value="new" aria-label="new">
+            <ToggleButton value="New" aria-label="new">
               New
             </ToggleButton>
-            <ToggleButton value="total" aria-label="total">
+            <ToggleButton value="Total" aria-label="total">
               Total
             </ToggleButton>
           </StyledToggleButtonGroup>
@@ -458,6 +459,9 @@ function App() {
             <StyledAggregatorContainer>
               {map(series, series => {
                 if (isEqual(series.name, "Notable Events")) {
+                  return;
+                }
+                if (!startsWith(series.category, category)) {
                   return;
                 }
                 if (isEqual(granularity, "year")) {
