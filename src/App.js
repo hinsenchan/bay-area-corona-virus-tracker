@@ -225,6 +225,7 @@ function App() {
       type: "flags",
       name: "Notable Events",
       shape: "circlepin",
+      showInLegend: false,
       data: [
         {
           x: moment("2020-03-11").valueOf(),
