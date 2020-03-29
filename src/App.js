@@ -27,7 +27,7 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import store from "store2";
-import { Container } from "@material-ui/core";
+import { Container, Fab } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import Box from "@material-ui/core/Card";
@@ -35,6 +35,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import styled from "styled-components/macro";
 
 const StyledContainer = styled(Container)`
@@ -87,6 +88,13 @@ const StyledAggregatorCard = styled(Card)`
   @media screen and (max-width: 600px) {
     margin-bottom: 12px;
   }
+`;
+
+const StyledFab = styled(Fab)`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 16px;
 `;
 
 const ChartWrapper = styled.div`
@@ -501,6 +509,13 @@ function App() {
           </StyledCountyContainer>
         );
       })}
+      <StyledFab
+        color="primary"
+        aria-label="scroll to top"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <ArrowUpwardIcon />
+      </StyledFab>
       <Typography align="center" variant="caption" component="h6">
         <p>
           <span>
