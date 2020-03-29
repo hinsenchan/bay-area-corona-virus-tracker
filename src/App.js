@@ -19,6 +19,7 @@ import {
   replace,
   round,
   sortBy,
+  startCase,
   toNumber
 } from "lodash";
 import * as firebase from "firebase/app";
@@ -318,6 +319,22 @@ function App() {
     }
   );
 
+  const transformedCountiesData = mapValues(
+    countyWithGrowthRates,
+    (series, name) => {
+      return map(series, series => {
+        series.category = replace(series.name, `${name} `, "");
+        series.name = startCase(series.category);
+        if (isEqual(series.type, "flags")) {
+          return series;
+        }
+        series.geography = name;
+        series.category = replace(series.name, `${name} `, "");
+        return series;
+      });
+    }
+  );
+
   let id = 0;
   return (
     <StyledContainer>
@@ -368,7 +385,7 @@ function App() {
         </StyledCardActions>
       </StyledCard>
 
-      {map(countyWithGrowthRates, (series, name) => {
+      {map(transformedCountiesData, (series, name) => {
         id++;
         const options = {
           chart: {
@@ -430,7 +447,7 @@ function App() {
                   >
                     <CardContent>
                       <Typography color="textSecondary" gutterBottom>
-                        {series.name}
+                        {startCase(series.category)}
                       </Typography>
                       <Typography variant="h5" component="h3">
                         {get(series, `${aggregator}.${granularity}`, "N/A")}
