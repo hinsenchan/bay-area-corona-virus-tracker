@@ -28,6 +28,7 @@ import store from "store2";
 import { Container } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import Box from "@material-ui/core/Card";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -36,6 +37,11 @@ import styled from "styled-components/macro";
 
 const StyledContainer = styled(Container)`
   background: white;
+`;
+
+const StyledBox = styled(Box)`
+  box-shadow: none;
+  margin-bottom: 16px;
 `;
 
 const StyledCard = styled(Card)`
@@ -404,9 +410,11 @@ function App() {
         };
         return (
           <StyledCountyContainer key={`${id}_foo`}>
-            <Typography variant="h5" component="h2">
-              {name}
-            </Typography>
+            <StyledBox>
+              <Typography variant="h5" component="h2">
+                {name}
+              </Typography>
+            </StyledBox>
             <StyledAggregatorContainer>
               {map(series, series => {
                 if (isEqual(series.name, "Notable Events")) {
