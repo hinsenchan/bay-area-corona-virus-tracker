@@ -503,7 +503,7 @@ function App() {
                         {startCase(series.category)}
                       </Typography>
                       <Typography variant="h5" component="h3">
-                        {get(series, `${aggregator}.${granularity}`, "N/A")}
+                        {get(series, `${aggregator}.${granularity}`, "-")}
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
                         {startCase(trimEnd(aggregator, "s"))}
