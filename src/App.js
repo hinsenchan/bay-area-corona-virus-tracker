@@ -72,19 +72,20 @@ const StyledAggregatorContainer = styled.div`
   margin-bottom: 16px;
 
   @media screen and (max-width: 600px) {
-    flex-direction: column;
     margin-bottom: 12px;
   }
 `;
 
 const StyledAggregatorCard = styled(Card)`
   margin-right: 8px;
-  max-width: 175px;
+  flex-grow: 1;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   @media screen and (max-width: 600px) {
-    margin-right: 0;
     margin-bottom: 12px;
-    max-width: 100%;
   }
 `;
 
