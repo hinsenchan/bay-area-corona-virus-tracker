@@ -53,8 +53,12 @@ const StyledCardActions = styled(CardActions)`
   @media screen and (max-width: 600px) {
     flex-direction: column;
 
-    & div:first-child {
+    & div {
       margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 `;
@@ -260,12 +264,17 @@ function App() {
   );
 
   const [granularity, setGranularity] = useState("month");
+  const [category, setCategory] = useState("total");
   const [aggregator, setAggregator] = useState("multiples");
 
   const startDateTime = GRANULARITY_DATETIME[granularity];
 
   const handleGranularity = (event, newGranularity) => {
     setGranularity(newGranularity);
+  };
+
+  const handleCategory = (event, newCategory) => {
+    setCategory(newCategory);
   };
 
   const handleAggregator = (event, newAggregator) => {
@@ -364,6 +373,19 @@ function App() {
             </ToggleButton>
             <ToggleButton value="year" aria-label="year">
               YTD
+            </ToggleButton>
+          </StyledToggleButtonGroup>
+          <StyledToggleButtonGroup
+            value={category}
+            exclusive
+            onChange={handleCategory}
+            aria-label="category"
+          >
+            <ToggleButton value="new" aria-label="new">
+              New
+            </ToggleButton>
+            <ToggleButton value="total" aria-label="total">
+              Total
             </ToggleButton>
           </StyledToggleButtonGroup>
           {isEqual(granularity, "year") ? (
