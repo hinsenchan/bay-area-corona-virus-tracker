@@ -90,11 +90,20 @@ const StyledAggregatorCard = styled(Card)`
   }
 `;
 
-const StyledFab = styled(Fab)`
+const StyledFabContainer = styled(Container)`
   position: fixed;
   bottom: 0;
-  right: 0;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const StyledFab = styled(Fab)`
   margin: 16px;
+
+  @media (min-width: 600px) {
+    margin: 24px;
+    margin: 24px;
+  }
 `;
 
 const ChartWrapper = styled.div`
@@ -509,13 +518,16 @@ function App() {
           </StyledCountyContainer>
         );
       })}
-      <StyledFab
-        color="primary"
-        aria-label="scroll to top"
-        onClick={() => window.scrollTo(0, 0)}
-      >
-        <ArrowUpwardIcon />
-      </StyledFab>
+      <StyledFabContainer>
+        <StyledFab
+          color="primary"
+          aria-label="scroll to top"
+          onClick={() => window.scrollTo(0, 0)}
+        >
+          <ArrowUpwardIcon />
+        </StyledFab>
+      </StyledFabContainer>
+
       <Typography align="center" variant="caption" component="h6">
         <p>
           <span>
