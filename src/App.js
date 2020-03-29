@@ -365,9 +365,6 @@ function App() {
       {map(countyWithGrowthRates, (series, name) => {
         id++;
         const options = {
-          title: {
-            text: name
-          },
           chart: {
             type: "line",
             zoomType: "x"
@@ -407,6 +404,9 @@ function App() {
         };
         return (
           <StyledCountyContainer key={`${id}_foo`}>
+            <Typography variant="h5" component="h2">
+              {name}
+            </Typography>
             <StyledAggregatorContainer>
               {map(series, series => {
                 if (isEqual(series.name, "Notable Events")) {
@@ -424,7 +424,7 @@ function App() {
                       <Typography color="textSecondary" gutterBottom>
                         {series.name}
                       </Typography>
-                      <Typography variant="h5" component="h2">
+                      <Typography variant="h5" component="h3">
                         {get(series, `${aggregator}.${granularity}`, "N/A")}
                       </Typography>
                     </CardContent>
