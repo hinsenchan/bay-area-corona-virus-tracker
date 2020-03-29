@@ -432,7 +432,7 @@ function App() {
         id++;
         series = map(series, series => {
           const isActive = startsWith(series.category, category);
-          series.visible = isActive;
+          series.visible = isActive || isEqual(series.type, "flags");
           series.showInLegend = isActive;
           return series;
         });
