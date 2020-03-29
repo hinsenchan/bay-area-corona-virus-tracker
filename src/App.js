@@ -284,7 +284,7 @@ function App() {
     }
   );
 
-  const [granularity, setGranularity] = useState("month");
+  const [granularity, setGranularity] = useState("week");
   const [category, setCategory] = useState("Total");
   const [aggregator, setAggregator] = useState("multiples");
 
