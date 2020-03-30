@@ -39,7 +39,6 @@ import PopperButtonGroup from "./components/PopperButtonGroup";
 
 const StyledContainer = styled(Container)`
   background: white;
-  margin-bottom: 80px;
 `;
 
 const StyledBox = styled(Box)`

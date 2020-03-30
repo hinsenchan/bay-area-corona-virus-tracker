@@ -4,24 +4,29 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import styled from "styled-components/macro";
 import ButtonGroup from "./ButtonGroup";
 import Popper from "@material-ui/core/Popper";
-import Fade from "@material-ui/core/Fade";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 
 const StyledFab = styled(Fab)`
-  margin: 16px;
+  display: none;
 
   @media (min-width: 600px) {
-    margin: 24px;
-    margin: 24px;
+    margin: 0 24px;
+
+    display: flex;
   }
 `;
 
+const StyledCard = styled(Card)`
+  position: fixed;
+  right: 8px;
+  bottom: -44px;
+`;
+
 const StyledCardActions = styled(CardActions)`
-  margin-bottom: 16px;
   flex-direction: column;
-  min-height: 208px;
-  min-width: 250px;
+  height: 208px;
+  width: 250px;
 `;
 
 export default function PopperButtonGroup(props) {
@@ -49,28 +54,24 @@ export default function PopperButtonGroup(props) {
         <FilterListIcon />
       </StyledFab>
       <Popper
+        disablePortal={true}
         placement="left"
         id={id}
         open={open}
         anchorEl={anchorEl}
-        transition
       >
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Card>
-              <StyledCardActions>
-                <ButtonGroup
-                  aggregator={aggregator}
-                  handleAggregator={handleAggregator}
-                  category={category}
-                  handleCategory={handleCategory}
-                  granularity={granularity}
-                  handleGranularity={handleGranularity}
-                />
-              </StyledCardActions>
-            </Card>
-          </Fade>
-        )}
+        <StyledCard>
+          <StyledCardActions>
+            <ButtonGroup
+              aggregator={aggregator}
+              handleAggregator={handleAggregator}
+              category={category}
+              handleCategory={handleCategory}
+              granularity={granularity}
+              handleGranularity={handleGranularity}
+            />
+          </StyledCardActions>
+        </StyledCard>
       </Popper>
     </Fragment>
   );

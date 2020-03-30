@@ -11,17 +11,15 @@ import IconButton from "@material-ui/core/IconButton";
 import ButtonGroup from "./ButtonGroup";
 
 const StyledCardActions = styled(CardActions)`
-  margin-bottom: 16px;
   flex-direction: column;
   min-height: 208px;
 `;
 
 const StyledFab = styled(Fab)`
-  margin: 16px;
+  margin: 0 16px;
 
   @media (min-width: 600px) {
-    margin: 24px;
-    margin: 24px;
+    display: none;
   }
 `;
 
