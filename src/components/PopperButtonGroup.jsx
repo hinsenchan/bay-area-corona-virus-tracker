@@ -10,7 +10,7 @@ import CardActions from "@material-ui/core/CardActions";
 const StyledFab = styled(Fab)`
   display: none;
 
-  @media (min-width: 600px) {
+  @media (min-width: 960px) {
     margin: 0 24px;
 
     display: flex;

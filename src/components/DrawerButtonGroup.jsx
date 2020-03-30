@@ -19,7 +19,7 @@ const StyledCardActions = styled(CardActions)`
 const StyledFab = styled(Fab)`
   margin: 0 16px;
 
-  @media (min-width: 600px) {
+  @media (min-width: 960px) {
     display: none;
   }
 `;
