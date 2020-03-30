@@ -41,6 +41,10 @@ const StyledContainer = styled(Container)`
   background: white;
 `;
 
+const StyledCard = styled(Card)`
+  margin-bottom: 16px;
+`;
+
 const StyledBox = styled(Box)`
   box-shadow: none;
   margin-bottom: 16px;
@@ -337,7 +341,7 @@ function App() {
   let id = 0;
   return (
     <StyledContainer>
-      <Card elevation={0}>
+      <StyledCard elevation={0}>
         <CardContent>
           <Typography gutterBottom variant="h4" component="h1">
             Bay Area Corona Virus Tracker - alpha
@@ -347,7 +351,7 @@ function App() {
             your friends and family informed. Let's flatten the curve together!
           </Typography>
         </CardContent>
-      </Card>
+      </StyledCard>
 
       {map(transformedCountiesData, (series, name) => {
         id++;
