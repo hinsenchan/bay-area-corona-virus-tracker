@@ -13,6 +13,7 @@ import ButtonGroup from "./ButtonGroup";
 const StyledCardActions = styled(CardActions)`
   flex-direction: column;
   min-height: 208px;
+  margin-bottom: 24px;
 `;
 
 const StyledFab = styled(Fab)`
