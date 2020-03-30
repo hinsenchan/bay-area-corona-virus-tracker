@@ -35,6 +35,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components/macro";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
+import PopperButtonGroup from "./components/PopperButtonGroup";
 
 const StyledContainer = styled(Container)`
   background: white;
@@ -445,6 +446,14 @@ function App() {
       })}
       <StyledFabContainer>
         <DrawerButtonGroup
+          aggregator={aggregator}
+          handleAggregator={handleAggregator}
+          category={category}
+          handleCategory={handleCategory}
+          granularity={granularity}
+          handleGranularity={handleGranularity}
+        />
+        <PopperButtonGroup
           aggregator={aggregator}
           handleAggregator={handleAggregator}
           category={category}
