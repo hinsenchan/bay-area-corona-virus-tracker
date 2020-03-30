@@ -46,10 +46,6 @@ const StyledBox = styled(Box)`
   margin-bottom: 16px;
 `;
 
-const StyledCard = styled(Card)`
-  margin-bottom: 24px;
-`;
-
 const StyledCountyContainer = styled.div``;
 const StyledAggregatorContainer = styled.div`
   display: flex;
@@ -341,7 +337,7 @@ function App() {
   let id = 0;
   return (
     <StyledContainer>
-      <StyledCard elevation={0}>
+      <Card elevation={0}>
         <CardContent>
           <Typography gutterBottom variant="h4" component="h1">
             Bay Area Corona Virus Tracker - alpha
@@ -351,7 +347,7 @@ function App() {
             your friends and family informed. Let's flatten the curve together!
           </Typography>
         </CardContent>
-      </StyledCard>
+      </Card>
 
       {map(transformedCountiesData, (series, name) => {
         id++;
