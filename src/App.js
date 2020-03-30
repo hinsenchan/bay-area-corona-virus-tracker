@@ -28,16 +28,13 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import store from "store2";
-import { Container, Fab } from "@material-ui/core";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import { Container } from "@material-ui/core";
 import Box from "@material-ui/core/Card";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import styled from "styled-components/macro";
+import DrawerButtonGroup from "./components/DrawerButtonGroup";
 
 const StyledContainer = styled(Container)`
   background: white;
@@ -52,22 +49,6 @@ const StyledBox = styled(Box)`
 const StyledCard = styled(Card)`
   margin-bottom: 24px;
 `;
-
-const StyledCardActions = styled(CardActions)`
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-
-    & div {
-      margin-bottom: 16px;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-`;
-
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)``;
 
 const StyledCountyContainer = styled.div``;
 const StyledAggregatorContainer = styled.div`
@@ -94,18 +75,9 @@ const StyledAggregatorCard = styled(Card)`
 
 const StyledFabContainer = styled(Container)`
   position: fixed;
-  bottom: 0;
+  bottom: 44px;
   display: flex;
   justify-content: flex-end;
-`;
-
-const StyledFab = styled(Fab)`
-  margin: 16px;
-
-  @media (min-width: 600px) {
-    margin: 24px;
-    margin: 24px;
-  }
 `;
 
 const ChartWrapper = styled.div`
@@ -379,54 +351,6 @@ function App() {
             your friends and family informed. Let's flatten the curve together!
           </Typography>
         </CardContent>
-        <StyledCardActions>
-          <StyledToggleButtonGroup
-            value={granularity}
-            exclusive
-            onChange={handleGranularity}
-            aria-label="granularity"
-          >
-            <ToggleButton value="week" aria-label="week">
-              Week
-            </ToggleButton>
-            <ToggleButton value="month" aria-label="month">
-              Month
-            </ToggleButton>
-            <ToggleButton value="year" aria-label="year">
-              YTD
-            </ToggleButton>
-          </StyledToggleButtonGroup>
-          <StyledToggleButtonGroup
-            value={category}
-            exclusive
-            onChange={handleCategory}
-            aria-label="category"
-          >
-            <ToggleButton value="New" aria-label="new">
-              New
-            </ToggleButton>
-            <ToggleButton value="Total" aria-label="total">
-              Total
-            </ToggleButton>
-          </StyledToggleButtonGroup>
-          {isEqual(granularity, "year") ? (
-            ""
-          ) : (
-            <ToggleButtonGroup
-              value={aggregator}
-              exclusive
-              onChange={handleAggregator}
-              aria-label="aggregator"
-            >
-              <ToggleButton value="growthRates" aria-label="growthRates">
-                Growth Rate
-              </ToggleButton>
-              <ToggleButton value="multiples" aria-label="multiples">
-                Multiple
-              </ToggleButton>
-            </ToggleButtonGroup>
-          )}
-        </StyledCardActions>
       </StyledCard>
 
       {map(transformedCountiesData, (series, name) => {
@@ -524,13 +448,14 @@ function App() {
         );
       })}
       <StyledFabContainer>
-        <StyledFab
-          color="primary"
-          aria-label="scroll to top"
-          onClick={() => window.scrollTo(0, 0)}
-        >
-          <ArrowUpwardIcon />
-        </StyledFab>
+        <DrawerButtonGroup
+          aggregator={aggregator}
+          handleAggregator={handleAggregator}
+          category={category}
+          handleCategory={handleCategory}
+          granularity={granularity}
+          handleGranularity={handleGranularity}
+        />
       </StyledFabContainer>
 
       <Typography align="center" variant="caption" component="h6">
