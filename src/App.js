@@ -22,7 +22,7 @@ import {
   startCase,
   startsWith,
   toNumber,
-  trimEnd
+  trimEnd,
 } from "lodash";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
@@ -93,7 +93,7 @@ const firebaseConfig = {
   storageBucket: "bay-area-corona-virus-tracker.appspot.com",
   messagingSenderId: "971181577619",
   appId: "1:971181577619:web:f8aba198bdf5a2177ac466",
-  measurementId: "G-Z8F0C0GN96"
+  measurementId: "G-Z8F0C0GN96",
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -124,13 +124,9 @@ function getStoreData(key) {
 }
 
 const GRANULARITY_DATETIME = {
-  week: moment()
-    .subtract(7, "days")
-    .valueOf(),
-  month: moment()
-    .subtract(30, "days")
-    .valueOf(),
-  year: moment("2020-01-25").valueOf()
+  week: moment().subtract(7, "days").valueOf(),
+  month: moment().subtract(30, "days").valueOf(),
+  year: moment("2020-01-25").valueOf(),
 };
 
 function App() {
@@ -142,28 +138,28 @@ function App() {
     fetchAndStore(key, data, setData);
   }, [key, data]);
 
-  const bayAreaCounties = data.filter(county =>
+  const bayAreaCounties = data.filter((county) =>
     isEqual(county["BAY AREA"], "YES")
   );
   const bayAreaCountiesDataSet = keyBy(
     bayAreaCounties,
-    county => `${county["GEOGRAPHY"]} new ${county["CATEGORY"]}`
+    (county) => `${county["GEOGRAPHY"]} new ${county["CATEGORY"]}`
   );
   const bayAreaCountiesTimeSeriesObj = mapValues(
     bayAreaCountiesDataSet,
-    county => {
+    (county) => {
       return omit(county, [
         "ROW",
         "GEOGRAPHY",
         "BAY AREA",
         "CATEGORY",
-        "TOTALS"
+        "TOTALS",
       ]);
     }
   );
   const bayAreaCountiesTimeSeries = mapValues(
     bayAreaCountiesTimeSeriesObj,
-    county => {
+    (county) => {
       return map(county, (value, key) => {
         return { x: moment(key, "MM-DD-YYYY").valueOf(), y: toNumber(value) };
       });
@@ -171,7 +167,7 @@ function App() {
   );
   const sortedBayAreaCountiesTimeSeries = mapValues(
     bayAreaCountiesTimeSeries,
-    series => {
+    (series) => {
       return sortBy(series, ["x"]);
     }
   );
@@ -183,11 +179,11 @@ function App() {
   );
   const groupedSortedBayAreaCountiesTimeSeriesObj = groupBy(
     sortedBayAreaCountiesTimeSeriesObj,
-    county => {
+    (county) => {
       let key = county.name;
       forEach(
         [" new cases", " new deaths"],
-        suffix => (key = replace(key, suffix, ""))
+        (suffix) => (key = replace(key, suffix, ""))
       );
       return key;
     }
@@ -197,11 +193,11 @@ function App() {
   );
   const totalGroupedSortedBayAreaCountiesTimeSeriesObj = mapValues(
     clonedGroupedSortedBayAreaCountiesTimeSeriesObj,
-    seriesArray => {
-      return map(seriesArray, series => {
+    (seriesArray) => {
+      return map(seriesArray, (series) => {
         let count = 0;
         series.name = replace(series.name, " new", " total");
-        series.data = map(series.data, timeSeriesObj => {
+        series.data = map(series.data, (timeSeriesObj) => {
           timeSeriesObj.y = count += timeSeriesObj.y;
           return timeSeriesObj;
         });
@@ -227,25 +223,25 @@ function App() {
         {
           x: moment("2020-03-11").valueOf(),
           title: "E",
-          text: "WHO declares COVID 19 a pandemic."
+          text: "WHO declares COVID 19 a pandemic.",
         },
         {
           x: moment("2020-03-16").valueOf(),
           title: "E",
-          text: "Bay Area orders Shelter in Place"
+          text: "Bay Area orders Shelter in Place",
         },
         {
           x: moment("2020-03-19").valueOf(),
           title: "E",
-          text: "California orders Stay at Home"
+          text: "California orders Stay at Home",
         },
         {
           x: moment("2020-03-24").valueOf(),
           title: "E",
-          text: "California closes vehicular traffic to state parks"
-        }
-      ]
-    }
+          text: "California closes vehicular traffic to state parks",
+        },
+      ],
+    },
   ];
 
   const newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags = mapValues(
@@ -277,7 +273,7 @@ function App() {
   const countyWithMultiples = mapValues(
     newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
     (series, name) => {
-      return map(series, series => {
+      return map(series, (series) => {
         if (isEqual(series.type, "flags")) {
           return series;
         }
@@ -301,7 +297,7 @@ function App() {
   const countyWithGrowthRates = mapValues(
     countyWithMultiples,
     (series, name) => {
-      return map(series, series => {
+      return map(series, (series) => {
         if (isEqual(series.type, "flags")) {
           return series;
         }
@@ -325,7 +321,7 @@ function App() {
   const transformedCountiesData = mapValues(
     countyWithGrowthRates,
     (series, name) => {
-      return map(series, series => {
+      return map(series, (series) => {
         series.category = replace(series.name, `${name} `, "");
         series.name = startCase(series.category);
         if (isEqual(series.type, "flags")) {
@@ -355,7 +351,7 @@ function App() {
 
       {map(transformedCountiesData, (series, name) => {
         id++;
-        series = map(series, series => {
+        series = map(series, (series) => {
           const isActive = startsWith(series.category, category);
           series.visible = isActive || isEqual(series.type, "flags");
           series.showInLegend = isActive;
@@ -364,40 +360,40 @@ function App() {
         const options = {
           chart: {
             type: "line",
-            zoomType: "x"
+            zoomType: "x",
           },
           xAxis: {
             floor: startDateTime,
             labels: {
-              format: "{value:%m-%d}"
+              format: "{value:%m-%d}",
             },
-            type: "datetime"
+            type: "datetime",
           },
           yAxis: {
             title: {
-              enabled: false
+              enabled: false,
             },
-            min: 0
+            min: 0,
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           legend: {
-            enabled: true
+            enabled: true,
           },
           navigator: {
-            enabled: false
+            enabled: false,
           },
           rangeSelector: {
-            enabled: false
+            enabled: false,
           },
           scrollbar: {
-            enabled: false
+            enabled: false,
           },
           tooltip: {
-            xDateFormat: "%m-%d"
+            xDateFormat: "%m-%d",
           },
-          series: series
+          series: series,
         };
         return (
           <StyledCountyContainer key={`${id}_foo`}>
@@ -407,7 +403,7 @@ function App() {
               </Typography>
             </StyledBox>
             <StyledAggregatorContainer>
-              {map(series, series => {
+              {map(series, (series) => {
                 if (isEqual(series.name, "Notable Events")) {
                   return;
                 }

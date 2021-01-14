@@ -9,9 +9,9 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     background: {
-      default: "#ffffff"
-    }
-  }
+      default: "#ffffff",
+    },
+  },
 });
 
 ReactDOM.render(
