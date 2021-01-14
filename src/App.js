@@ -34,6 +34,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components/macro";
+import { fetchAPIData } from "./api/fetchService";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import PopperButtonGroup from "./components/PopperButtonGroup";
 
@@ -98,14 +99,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-
-async function fetchAPIData() {
-  const response = await fetch(
-    "https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json"
-  );
-  const payload = await response.json();
-  return payload;
-}
 
 async function fetchAndStore(key, data, setData) {
   if (isEmpty(data)) {
