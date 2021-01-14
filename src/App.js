@@ -37,6 +37,7 @@ import styled from "styled-components/macro";
 import { fetchAPIData } from "./api/fetchService";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import PopperButtonGroup from "./components/PopperButtonGroup";
+import { FIREBASE_CONFIG } from "./utils/firebaseConstants";
 
 const StyledContainer = styled(Container)`
   background: white;
@@ -86,18 +87,7 @@ const ChartWrapper = styled.div`
   flex-grow: 1;
 `;
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAOs83YSuTuIKk-Zob_QFw49IM6_k-AM3w",
-  authDomain: "bay-area-corona-virus-tracker.firebaseapp.com",
-  databaseURL: "https://bay-area-corona-virus-tracker.firebaseio.com",
-  projectId: "bay-area-corona-virus-tracker",
-  storageBucket: "bay-area-corona-virus-tracker.appspot.com",
-  messagingSenderId: "971181577619",
-  appId: "1:971181577619:web:f8aba198bdf5a2177ac466",
-  measurementId: "G-Z8F0C0GN96",
-};
-
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(FIREBASE_CONFIG);
 firebase.analytics();
 
 async function fetchAndStore(key, data, setData) {
