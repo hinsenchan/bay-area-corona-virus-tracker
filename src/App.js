@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import {
   cloneDeep,
   concat,
-  isEmpty,
   isEqual,
   forEach,
   get,
@@ -27,16 +26,15 @@ import {
 import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
-import store from "store2";
 import { Container } from "@material-ui/core";
 import Box from "@material-ui/core/Card";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components/macro";
-import { fetchAPIData } from "./api/fetchService";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import PopperButtonGroup from "./components/PopperButtonGroup";
+import { useFetchAndStore } from "./hooks/useFetchAndStore";
 import { FIREBASE_CONFIG } from "./utils/firebaseConstants";
 
 const StyledContainer = styled(Container)`
@@ -90,22 +88,6 @@ const ChartWrapper = styled.div`
 firebase.initializeApp(FIREBASE_CONFIG);
 firebase.analytics();
 
-async function fetchAndStore(key, data, setData) {
-  if (isEmpty(data)) {
-    const payload = await fetchAPIData();
-    setStoreData(key, payload);
-    setData(payload);
-  }
-}
-
-function setStoreData(key, payload) {
-  store.set(key, payload);
-}
-
-function getStoreData(key) {
-  return store.get(key);
-}
-
 const GRANULARITY_DATETIME = {
   week: moment().subtract(7, "days").valueOf(),
   month: moment().subtract(30, "days").valueOf(),
@@ -113,14 +95,7 @@ const GRANULARITY_DATETIME = {
 };
 
 function App() {
-  const key = moment().format("YYYY-MM-DD");
-  const storeData = getStoreData(key) || [];
-  const [data, setData] = useState(storeData);
-
-  useEffect(() => {
-    fetchAndStore(key, data, setData);
-  }, [key, data]);
-
+  const data = useFetchAndStore();
   const bayAreaCounties = data.filter((county) =>
     isEqual(county["BAY AREA"], "YES")
   );
