@@ -23,11 +23,8 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import moment from "moment";
 import { Container } from "@material-ui/core";
-import Box from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
 import styled from "styled-components/macro";
-import Aggregator from "./components/Aggregator";
-import Chart from "./components/Chart";
+import County from "./components/County";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -39,13 +36,6 @@ import { FIREBASE_CONFIG } from "./utils/firebaseConstants";
 const StyledContainer = styled(Container)`
   background: white;
 `;
-
-const StyledBox = styled(Box)`
-  box-shadow: none;
-  margin-bottom: 16px;
-`;
-
-const StyledCountyContainer = styled.div``;
 
 const StyledFabContainer = styled(Container)`
   position: fixed;
@@ -243,20 +233,15 @@ function App() {
           return series;
         });
         return (
-          <StyledCountyContainer key={`${id}_foo`}>
-            <StyledBox>
-              <Typography variant="h5" component="h2">
-                {name}
-              </Typography>
-            </StyledBox>
-            <Aggregator
-              series={series}
-              category={category}
-              granularity={granularity}
-              aggregator={aggregator}
-            />
-            <Chart key={id} startDateTime={startDateTime} series={series} />
-          </StyledCountyContainer>
+          <County
+            key={id}
+            name={name}
+            series={series}
+            category={category}
+            granularity={granularity}
+            aggregator={aggregator}
+            startDateTime={startDateTime}
+          />
         );
       })}
       <StyledFabContainer>
