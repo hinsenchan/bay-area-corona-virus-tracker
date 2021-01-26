@@ -34,6 +34,7 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components/macro";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 import PopperButtonGroup from "./components/PopperButtonGroup";
 import { useFetchAndStore } from "./hooks/useFetchAndStore";
 import { NOTABLE_EVENTS } from "./utils/eventConstants";
@@ -41,10 +42,6 @@ import { FIREBASE_CONFIG } from "./utils/firebaseConstants";
 
 const StyledContainer = styled(Container)`
   background: white;
-`;
-
-const StyledCard = styled(Card)`
-  margin-bottom: 16px;
 `;
 
 const StyledBox = styled(Box)`
@@ -266,18 +263,7 @@ function App() {
   let id = 0;
   return (
     <StyledContainer>
-      <StyledCard elevation={0}>
-        <CardContent>
-          <Typography gutterBottom variant="h4" component="h1">
-            Bay Area Corona Virus Tracker - alpha
-          </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
-            Monitor corona virus growth rates across Bay Area counties. Keep
-            your friends and family informed. Let's flatten the curve together!
-          </Typography>
-        </CardContent>
-      </StyledCard>
-
+      <Header />
       {map(transformedCountiesData, (series, name) => {
         id++;
         series = map(series, (series) => {
