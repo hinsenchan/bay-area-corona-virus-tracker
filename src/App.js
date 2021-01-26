@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
 import {
   cloneDeep,
   concat,
@@ -32,6 +30,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components/macro";
+import Chart from "./components/Chart";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -77,11 +76,6 @@ const StyledFabContainer = styled(Container)`
   bottom: 44px;
   display: flex;
   justify-content: flex-end;
-`;
-
-const ChartWrapper = styled.div`
-  margin-bottom: 16px;
-  flex-grow: 1;
 `;
 
 firebase.initializeApp(FIREBASE_CONFIG);
@@ -272,44 +266,6 @@ function App() {
           series.showInLegend = isActive;
           return series;
         });
-        const options = {
-          chart: {
-            type: "line",
-            zoomType: "x",
-          },
-          xAxis: {
-            floor: startDateTime,
-            labels: {
-              format: "{value:%m-%d}",
-            },
-            type: "datetime",
-          },
-          yAxis: {
-            title: {
-              enabled: false,
-            },
-            min: 0,
-          },
-          credits: {
-            enabled: false,
-          },
-          legend: {
-            enabled: true,
-          },
-          navigator: {
-            enabled: false,
-          },
-          rangeSelector: {
-            enabled: false,
-          },
-          scrollbar: {
-            enabled: false,
-          },
-          tooltip: {
-            xDateFormat: "%m-%d",
-          },
-          series: series,
-        };
         return (
           <StyledCountyContainer key={`${id}_foo`}>
             <StyledBox>
@@ -348,13 +304,7 @@ function App() {
                 );
               })}
             </StyledAggregatorContainer>
-            <ChartWrapper key={id}>
-              <HighchartsReact
-                highcharts={Highcharts}
-                constructorType={"stockChart"}
-                options={options}
-              />
-            </ChartWrapper>
+            <Chart key={id} startDateTime={startDateTime} series={series} />
           </StyledCountyContainer>
         );
       })}
