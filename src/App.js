@@ -16,7 +16,6 @@ import {
   round,
   sortBy,
   startCase,
-  startsWith,
   toNumber,
 } from "lodash";
 import * as firebase from "firebase/app";
@@ -24,7 +23,7 @@ import "firebase/analytics";
 import moment from "moment";
 import { Container } from "@material-ui/core";
 import styled from "styled-components/macro";
-import County from "./components/County";
+import Counties from "./components/Counties";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -219,31 +218,16 @@ function App() {
       });
     }
   );
-
-  let id = 0;
   return (
     <StyledContainer>
       <Header />
-      {map(transformedCountiesData, (series, name) => {
-        id++;
-        series = map(series, (series) => {
-          const isActive = startsWith(series.category, category);
-          series.visible = isActive || isEqual(series.type, "flags");
-          series.showInLegend = isActive;
-          return series;
-        });
-        return (
-          <County
-            key={id}
-            name={name}
-            series={series}
-            category={category}
-            granularity={granularity}
-            aggregator={aggregator}
-            startDateTime={startDateTime}
-          />
-        );
-      })}
+      <Counties
+        transformedCountiesData={transformedCountiesData}
+        category={category}
+        granularity={granularity}
+        aggregator={aggregator}
+        startDateTime={startDateTime}
+      />
       <StyledFabContainer>
         <DrawerButtonGroup
           aggregator={aggregator}
