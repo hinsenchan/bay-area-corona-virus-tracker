@@ -35,6 +35,7 @@ import styled from "styled-components/macro";
 import DrawerButtonGroup from "./components/DrawerButtonGroup";
 import PopperButtonGroup from "./components/PopperButtonGroup";
 import { useFetchAndStore } from "./hooks/useFetchAndStore";
+import { NOTABLE_EVENTS } from "./utils/eventConstants";
 import { FIREBASE_CONFIG } from "./utils/firebaseConstants";
 
 const StyledContainer = styled(Container)`
@@ -170,37 +171,6 @@ function App() {
       return series;
     }
   );
-
-  const NOTABLE_EVENTS = [
-    {
-      type: "flags",
-      name: "Notable Events",
-      shape: "circlepin",
-      showInLegend: false,
-      data: [
-        {
-          x: moment("2020-03-11").valueOf(),
-          title: "E",
-          text: "WHO declares COVID 19 a pandemic.",
-        },
-        {
-          x: moment("2020-03-16").valueOf(),
-          title: "E",
-          text: "Bay Area orders Shelter in Place",
-        },
-        {
-          x: moment("2020-03-19").valueOf(),
-          title: "E",
-          text: "California orders Stay at Home",
-        },
-        {
-          x: moment("2020-03-24").valueOf(),
-          title: "E",
-          text: "California closes vehicular traffic to state parks",
-        },
-      ],
-    },
-  ];
 
   const newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags = mapValues(
     newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
