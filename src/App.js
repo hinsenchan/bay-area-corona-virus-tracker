@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   cloneDeep,
   concat,
@@ -27,6 +27,7 @@ import Counties from "./components/Counties";
 import Fab from "./components/Fab";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { useDataFilters } from "./hooks/useDataFilters";
 import { useFetchAndStore } from "./hooks/useFetchAndStore";
 import { NOTABLE_EVENTS } from "./utils/eventConstants";
 import { FIREBASE_CONFIG } from "./utils/firebaseConstants";
@@ -37,12 +38,6 @@ const StyledContainer = styled(Container)`
 
 firebase.initializeApp(FIREBASE_CONFIG);
 firebase.analytics();
-
-const GRANULARITY_DATETIME = {
-  week: moment().subtract(7, "days").valueOf(),
-  month: moment().subtract(30, "days").valueOf(),
-  year: moment("2020-01-25").valueOf(),
-};
 
 function App() {
   const data = useFetchAndStore();
@@ -129,24 +124,6 @@ function App() {
     }
   );
 
-  const [granularity, setGranularity] = useState("week");
-  const [category, setCategory] = useState("Total");
-  const [aggregator, setAggregator] = useState("multiples");
-
-  const startDateTime = GRANULARITY_DATETIME[granularity];
-
-  const handleGranularity = (event, newGranularity) => {
-    setGranularity(newGranularity);
-  };
-
-  const handleCategory = (event, newCategory) => {
-    setCategory(newCategory);
-  };
-
-  const handleAggregator = (event, newAggregator) => {
-    setAggregator(newAggregator);
-  };
-
   const countyWithMultiples = mapValues(
     newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
     (series, name) => {
@@ -210,6 +187,15 @@ function App() {
       });
     }
   );
+  const [
+    aggregator,
+    handleAggregator,
+    category,
+    handleCategory,
+    granularity,
+    handleGranularity,
+    startDateTime,
+  ] = useDataFilters();
   return (
     <StyledContainer>
       <Header />
