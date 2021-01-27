@@ -5,7 +5,7 @@ export const LINE_CHART = {
   },
   xAxis: {
     labels: {
-      format: "{value:%m-%d}",
+      format: "{value:%Y-%m-%d}",
     },
     type: "datetime",
   },
@@ -31,7 +31,7 @@ export const LINE_CHART = {
     enabled: false,
   },
   tooltip: {
-    xDateFormat: "%m-%d",
+    xDateFormat: "%Y-%m-%d",
   },
   series: [
     {

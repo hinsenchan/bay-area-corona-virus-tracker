@@ -10,12 +10,13 @@ const StyledChart = styled.div`
   flex-grow: 1;
 `;
 
-function Chart({ startDateTime, series }) {
+function Chart({ endDateTime, startDateTime, series }) {
   const options = {
     xAxis: {
+      ceiling: endDateTime,
       floor: startDateTime,
       labels: {
-        format: "{value:%m-%d}",
+        format: "{value:%Y-%m-%d}",
       },
       type: "datetime",
     },

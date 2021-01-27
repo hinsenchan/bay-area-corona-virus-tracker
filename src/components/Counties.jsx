@@ -7,6 +7,7 @@ function Counties({
   category,
   granularity,
   aggregator,
+  endDateTime,
   startDateTime,
 }) {
   return map(transformedCountiesData, (series, name) => {
@@ -24,6 +25,7 @@ function Counties({
         category={category}
         granularity={granularity}
         aggregator={aggregator}
+        endDateTime={endDateTime}
         startDateTime={startDateTime}
       />
     );

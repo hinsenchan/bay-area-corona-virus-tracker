@@ -15,7 +15,7 @@ export default function DrawerButtonGroup(props) {
     category,
     handleCategory,
     granularity,
-    handleGranularity
+    handleGranularity,
   } = props;
 
   return (
@@ -26,14 +26,17 @@ export default function DrawerButtonGroup(props) {
         onChange={handleGranularity}
         aria-label="granularity"
       >
-        <ToggleButton value="week" aria-label="week">
-          Week
-        </ToggleButton>
         <ToggleButton value="month" aria-label="month">
           Month
         </ToggleButton>
-        <ToggleButton value="year" aria-label="year">
-          YTD
+        <ToggleButton value="quarter" aria-label="quarter">
+          Quarter
+        </ToggleButton>
+        <ToggleButton value="halfYear" aria-label="halfYear">
+          Half Year
+        </ToggleButton>
+        <ToggleButton value="max" aria-label="max">
+          Max
         </ToggleButton>
       </StyledToggleButtonGroup>
       <StyledToggleButtonGroup

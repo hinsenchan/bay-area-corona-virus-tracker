@@ -27,6 +27,7 @@ function App() {
     handleCategory,
     granularity,
     handleGranularity,
+    endDateTime,
     startDateTime,
   ] = useDataFilters();
   return (
@@ -37,6 +38,7 @@ function App() {
         category={category}
         granularity={granularity}
         aggregator={aggregator}
+        endDateTime={endDateTime}
         startDateTime={startDateTime}
       />
       <Fab

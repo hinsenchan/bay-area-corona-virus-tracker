@@ -18,6 +18,7 @@ function County({
   category,
   granularity,
   aggregator,
+  endDateTime,
   startDateTime,
 }) {
   return (
@@ -33,7 +34,11 @@ function County({
         granularity={granularity}
         aggregator={aggregator}
       />
-      <Chart startDateTime={startDateTime} series={series} />
+      <Chart
+        endDateTime={endDateTime}
+        startDateTime={startDateTime}
+        series={series}
+      />
     </StyledCountyContainer>
   );
 }
