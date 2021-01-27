@@ -2,9 +2,9 @@ import { useState } from "react";
 import moment from "moment";
 
 const GRANULARITY_DATETIME = {
-  month: moment("2020-01-25").add(1, "months").valueOf(),
-  quarter: moment("2020-01-25").add(3, "months").valueOf(),
-  halfYear: moment("2020-01-25").add(6, "months").valueOf(),
+  month: moment("2020-01-25").add(30, "days").valueOf(),
+  quarter: moment("2020-01-25").add(90, "days").valueOf(),
+  halfYear: moment("2020-01-25").add(180, "days").valueOf(),
   max: moment("2020-09-22").valueOf(),
 };
 

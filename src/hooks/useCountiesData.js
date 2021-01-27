@@ -113,17 +113,26 @@ export function useCountiesData() {
           return series;
         }
         const now = last(series.data) || {};
-        const week = nth(series.data, -7) || {};
         const month = nth(series.data, -30) || {};
-        let weekMultiple;
+        const quarter = nth(series.data, -90) || {};
+        const halfYear = nth(series.data, -180) || {};
         let monthMultiple;
-        if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
-          weekMultiple = `${round(now.y / week.y, 2)}x`;
-        }
+        let quarterMultiple;
+        let halfYearMultiple;
         if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
           monthMultiple = `${round(now.y / month.y, 2)}x`;
         }
-        series.multiples = { week: weekMultiple, month: monthMultiple };
+        if (isNumber(now.y) && isNumber(quarter.y) && quarter.y > 0) {
+          quarterMultiple = `${round(now.y / quarter.y, 2)}x`;
+        }
+        if (isNumber(now.y) && isNumber(halfYear.y) && halfYear.y > 0) {
+          halfYearMultiple = `${round(now.y / halfYear.y, 2)}x`;
+        }
+        series.multiples = {
+          month: monthMultiple,
+          quarter: quarterMultiple,
+          halfYear: halfYearMultiple,
+        };
         return series;
       });
     }
@@ -136,17 +145,32 @@ export function useCountiesData() {
           return series;
         }
         const now = last(series.data) || {};
-        const week = nth(series.data, -7) || {};
         const month = nth(series.data, -30) || {};
-        let weekGrowthRate;
+        const quarter = nth(series.data, -90) || {};
+        const halfYear = nth(series.data, -180) || {};
         let monthGrowthRate;
-        if (isNumber(now.y) && isNumber(week.y) && week.y > 0) {
-          weekGrowthRate = `${round(((now.y - week.y) / week.y) * 100, 2)}%`;
-        }
+        let quarterGrowthRate;
+        let halfYearGrowthRate;
         if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
           monthGrowthRate = `${round(((now.y - month.y) / month.y) * 100, 2)}%`;
         }
-        series.growthRates = { week: weekGrowthRate, month: monthGrowthRate };
+        if (isNumber(now.y) && isNumber(quarter.y) && quarter.y > 0) {
+          quarterGrowthRate = `${round(
+            ((now.y - quarter.y) / quarter.y) * 100,
+            2
+          )}%`;
+        }
+        if (isNumber(now.y) && isNumber(halfYear.y) && halfYear.y > 0) {
+          halfYearGrowthRate = `${round(
+            ((now.y - halfYear.y) / halfYear.y) * 100,
+            2
+          )}%`;
+        }
+        series.growthRates = {
+          month: monthGrowthRate,
+          quarter: quarterGrowthRate,
+          halfYear: halfYearGrowthRate,
+        };
         return series;
       });
     }

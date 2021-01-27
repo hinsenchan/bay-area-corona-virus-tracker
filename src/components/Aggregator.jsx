@@ -37,6 +37,9 @@ function Aggregator({ series, category, granularity, aggregator }) {
         if (!startsWith(series.category, category)) {
           return;
         }
+        if (isEqual(granularity, "max")) {
+          return;
+        }
         return (
           <StyledAggregatorCard
             key={`${series.name}_${aggregator}_${granularity}`}
