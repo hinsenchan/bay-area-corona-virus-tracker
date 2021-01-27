@@ -9,9 +9,7 @@ function Counties({
   aggregator,
   startDateTime,
 }) {
-  let id = 0;
   return map(transformedCountiesData, (series, name) => {
-    id++;
     series = map(series, (series) => {
       const isActive = startsWith(series.category, category);
       series.visible = isActive || isEqual(series.type, "flags");
@@ -20,7 +18,7 @@ function Counties({
     });
     return (
       <County
-        key={id}
+        key={name}
         name={name}
         series={series}
         category={category}
