@@ -55,7 +55,7 @@ export default function ButtonGroup(props) {
           Total
         </ToggleButton>
       </StyledToggleButtonGroup>
-      {isEqual(granularity, "year") ? (
+      {isEqual(granularity, "max") ? (
         ""
       ) : (
         <StyledToggleButtonGroup
