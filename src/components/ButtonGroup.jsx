@@ -30,13 +30,13 @@ export default function ButtonGroup(props) {
         aria-label="granularity"
       >
         <ToggleButton value="month" aria-label="month">
-          Month
+          1 Month
         </ToggleButton>
         <ToggleButton value="quarter" aria-label="quarter">
-          Quarter
+          3 Months
         </ToggleButton>
         <ToggleButton value="halfYear" aria-label="halfYear">
-          Half Year
+          6 Months
         </ToggleButton>
         <ToggleButton value="max" aria-label="max">
           Max
