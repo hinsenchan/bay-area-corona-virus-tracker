@@ -11,6 +11,9 @@ const StyledFabContainer = styled(Container)`
   justify-content: flex-end;
 `;
 
+/**
+ * Presenter for floating action button used to show and hide data filters.
+ */
 function Fab({
   aggregator,
   handleAggregator,

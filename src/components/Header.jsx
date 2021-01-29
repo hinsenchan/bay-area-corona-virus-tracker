@@ -8,6 +8,9 @@ const StyledCard = styled(Card)`
   margin-bottom: 16px;
 `;
 
+/**
+ * Presenter for application header.
+ */
 function Header() {
   return (
     <StyledCard elevation={0}>

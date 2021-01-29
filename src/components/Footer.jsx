@@ -1,6 +1,9 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 
+/**
+ * Presenter for application footer.
+ */
 function Footer() {
   return (
     <Typography align="center" variant="caption" component="h6">

@@ -21,6 +21,13 @@ import moment from "moment";
 import { useFetchAndStore } from "./useFetchAndStore";
 import { NOTABLE_EVENTS } from "../utils/eventConstants";
 
+/**
+ * Map fetched data by counties.
+ * Set attributes used to render county series for charts.
+ * Calculate growth rates and multiples for county series.
+ * Set attributes used to render notable event series for charts.
+ * @returns {Object} transformed counties data
+ */
 export function useCountiesData() {
   const data = useFetchAndStore();
   const bayAreaCounties = data.filter((county) =>

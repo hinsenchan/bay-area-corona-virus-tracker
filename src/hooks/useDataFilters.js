@@ -8,6 +8,10 @@ const GRANULARITY_DATETIME = {
   max: moment("2020-09-22").valueOf(),
 };
 
+/**
+ * Maintains data filter states and handlers to modify it.
+ * @returns {Array} aggregator, handleAggregator, category, categoryHandler, granularity, handleGranularity, endDateTime, startDateTime
+ */
 export function useDataFilters() {
   const [aggregator, setAggregator] = useState("multiples");
   const [category, setCategory] = useState("Total");

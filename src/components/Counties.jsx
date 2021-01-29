@@ -2,6 +2,9 @@ import React from "react";
 import { isEqual, map, startsWith } from "lodash";
 import County from "./County";
 
+/**
+ * Presenter for counties data.
+ */
 function Counties({
   transformedCountiesData,
   category,

@@ -10,6 +10,9 @@ const StyledChart = styled.div`
   flex-grow: 1;
 `;
 
+/**
+ * Presenter for Highcharts wrapper.
+ */
 function Chart({ endDateTime, startDateTime, series }) {
   const options = {
     xAxis: {

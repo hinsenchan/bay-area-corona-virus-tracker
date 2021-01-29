@@ -12,6 +12,9 @@ const StyledBox = styled(Box)`
 
 const StyledCountyContainer = styled.div``;
 
+/**
+ * Presenter for county data.
+ */
 function County({
   name,
   series,

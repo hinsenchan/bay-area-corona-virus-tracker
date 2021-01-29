@@ -8,7 +8,10 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   margin: 8px;
 `;
 
-export default function DrawerButtonGroup(props) {
+/**
+ * Presenter for data filter button group.
+ */
+export default function ButtonGroup(props) {
   const {
     aggregator,
     handleAggregator,

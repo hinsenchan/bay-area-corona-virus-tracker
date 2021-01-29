@@ -29,6 +29,9 @@ const StyledCardActions = styled(CardActions)`
   width: 250px;
 `;
 
+/**
+ * Presenter for data filter using popper buttons.
+ */
 export default function PopperButtonGroup(props) {
   const {
     aggregator,
@@ -36,12 +39,12 @@ export default function PopperButtonGroup(props) {
     category,
     handleCategory,
     granularity,
-    handleGranularity
+    handleGranularity,
   } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 

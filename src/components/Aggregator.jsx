@@ -27,6 +27,9 @@ const StyledAggregatorCard = styled(Card)`
   }
 `;
 
+/**
+ * Presenter for series aggregation by category and granularity.
+ */
 function Aggregator({ series, category, granularity, aggregator }) {
   return (
     <StyledAggregatorContainer>

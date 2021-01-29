@@ -24,6 +24,9 @@ const StyledFab = styled(Fab)`
   }
 `;
 
+/**
+ * Presenter for data filter using drawer buttons.
+ */
 export default function DrawerButtonGroup(props) {
   const {
     aggregator,
@@ -31,11 +34,11 @@ export default function DrawerButtonGroup(props) {
     category,
     handleCategory,
     granularity,
-    handleGranularity
+    handleGranularity,
   } = props;
   const [open, setOpen] = useState(false);
 
-  const toggleDrawer = open => event => {
+  const toggleDrawer = (open) => (event) => {
     setOpen(open);
   };
 
