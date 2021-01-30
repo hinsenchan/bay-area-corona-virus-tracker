@@ -1,11 +1,14 @@
 import { useState } from "react";
 import moment from "moment";
 
+const DATA_START_DATE = "2020-01-25";
+const DATA_END_DATE = "2020-09-22";
+
 const GRANULARITY_DATETIME = {
-  month: moment("2020-01-25").add(30, "days").valueOf(),
-  quarter: moment("2020-01-25").add(90, "days").valueOf(),
-  halfYear: moment("2020-01-25").add(180, "days").valueOf(),
-  max: moment("2020-09-22").valueOf(),
+  month: moment(DATA_START_DATE).add(30, "days").valueOf(),
+  quarter: moment(DATA_START_DATE).add(90, "days").valueOf(),
+  halfYear: moment(DATA_START_DATE).add(180, "days").valueOf(),
+  max: moment(DATA_END_DATE).valueOf(),
 };
 
 /**
@@ -30,7 +33,7 @@ export function useDataFilters() {
   };
 
   const endDateTime = GRANULARITY_DATETIME[granularity];
-  const startDateTime = moment("2020-01-25").valueOf();
+  const startDateTime = moment(DATA_START_DATE).valueOf();
 
   return [
     aggregator,
