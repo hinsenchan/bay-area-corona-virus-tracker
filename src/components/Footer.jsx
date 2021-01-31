@@ -31,11 +31,11 @@ function Footer() {
         <span>Created by Hinsen Chan</span>
         <br />
         <a
-          href="https://github.com/hinsenchan"
+          href="https://github.com/hinsenchan/bay-area-corona-virus-tracker"
           target="_blank"
           rel="noopener noreferrer"
         >
-          https://github.com/hinsenchan
+          https://github.com/hinsenchan/bay-area-corona-virus-tracker
         </a>
       </p>
     </Typography>
