@@ -30,6 +30,20 @@ const StyledCardActions = styled(CardActions)`
 `;
 
 /**
+ * Maintains popper state.
+ * @returns {array} anchorEl, handleClick, open, id
+ */
+function useTogglePopper() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+  const open = Boolean(anchorEl);
+  const id = open ? "transitions-popper" : undefined;
+  return [anchorEl, handleClick, open, id];
+}
+
+/**
  * Presenter for data filter using popper buttons.
  */
 export default function PopperButtonGroup(props) {
@@ -41,16 +55,7 @@ export default function PopperButtonGroup(props) {
     granularity,
     handleGranularity,
   } = props;
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "transitions-popper" : undefined;
-
+  const [anchorEl, handleClick, open, id] = useTogglePopper();
   return (
     <Fragment>
       <StyledFab color="primary" aria-label="filter" onClick={handleClick}>

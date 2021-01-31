@@ -25,6 +25,18 @@ const StyledFab = styled(Fab)`
 `;
 
 /**
+ * Maintains drawer state.
+ * @returns {array} open, toggleDrawer
+ */
+function useToggleDrawer() {
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = (open) => (event) => {
+    setOpen(open);
+  };
+  return [open, toggleDrawer];
+}
+
+/**
  * Presenter for data filter using drawer buttons.
  */
 export default function DrawerButtonGroup(props) {
@@ -36,12 +48,7 @@ export default function DrawerButtonGroup(props) {
     granularity,
     handleGranularity,
   } = props;
-  const [open, setOpen] = useState(false);
-
-  const toggleDrawer = (open) => (event) => {
-    setOpen(open);
-  };
-
+  const [open, toggleDrawer] = useToggleDrawer();
   return (
     <Fragment>
       <StyledFab

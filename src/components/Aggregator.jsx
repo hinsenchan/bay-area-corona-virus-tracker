@@ -28,36 +28,96 @@ const StyledAggregatorCard = styled(Card)`
 `;
 
 /**
+ * Determines whether series is a notable event.
+ * @param {Object} series
+ * @return {boolean} value
+ */
+function isNotablEventSeries(series) {
+  return isEqual(series.name, "Notable Events");
+}
+
+/**
+ * Determines whether series is an inactive category.
+ * @param {Object} series
+ * @param {string} category
+ * @return {boolean} value
+ */
+function isInactiveCategorySeries(series, category) {
+  return !startsWith(series.category, category);
+}
+
+/**
+ * Determines whether granularity has max value.
+ * @param {string} granularity
+ * @return {boolean} value
+ */
+function isMaxGranularity(granularity) {
+  return isEqual(granularity, "max");
+}
+
+/**
+ * Format category series value.
+ * @param {Object} series
+ * @returns {string} value
+ */
+function formatSeriesCategory(series) {
+  return startCase(series.category);
+}
+
+/**
+ * Get series aggregator granularity value.
+ * @param {Object} series
+ * @param {string} aggregator
+ * @param {string} granularity
+ * @returns {string} value
+ */
+function getAggregatorGranularityValue(series, aggregator, granularity) {
+  return get(series, `${aggregator}.${granularity}`, "-");
+}
+
+/**
+ * Format aggregator series value.
+ * @param {string} aggregator
+ * @returns {string} value
+ */
+function formatSeriesAggregator(aggregator) {
+  return startCase(trimEnd(aggregator, "s"));
+}
+
+/**
  * Presenter for series aggregation by category and granularity.
  */
 function Aggregator({ series, category, granularity, aggregator }) {
   return (
     <StyledAggregatorContainer data-testid="aggregator">
-      {map(series, (series) => {
-        if (isEqual(series.name, "Notable Events")) {
+      {map(series, (highchartSeries) => {
+        if (
+          isNotablEventSeries(highchartSeries) ||
+          isInactiveCategorySeries(highchartSeries, category) ||
+          isMaxGranularity(granularity)
+        ) {
           return;
         }
-        if (!startsWith(series.category, category)) {
-          return;
-        }
-        if (isEqual(granularity, "max")) {
-          return;
-        }
+        const key = `${highchartSeries.name}_${aggregator}_${granularity}`;
         return (
           <StyledAggregatorCard
             data-testid="aggregator-card"
-            key={`${series.name}_${aggregator}_${granularity}`}
+            key={key}
             variant="outlined"
           >
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
-                {startCase(series.category)}
+                {formatSeriesCategory(highchartSeries)}
               </Typography>
               <Typography variant="h5" component="h3">
-                {get(series, `${aggregator}.${granularity}`, "-")}
+                {getAggregatorGranularityValue(
+                  highchartSeries,
+                  aggregator,
+                  granularity
+                )}
               </Typography>
               <Typography variant="caption" color="textSecondary">
-                {startCase(trimEnd(aggregator, "s"))}
+                {formatSeriesAggregator(aggregator)}
               </Typography>
             </CardContent>
           </StyledAggregatorCard>
