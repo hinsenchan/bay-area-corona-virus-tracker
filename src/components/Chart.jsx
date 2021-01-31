@@ -27,7 +27,7 @@ function Chart({ endDateTime, startDateTime, series }) {
   };
   const mergedOptions = merge({}, LINE_CHART, options);
   return (
-    <StyledChart>
+    <StyledChart data-testid="chart">
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={STOCK_CHART}

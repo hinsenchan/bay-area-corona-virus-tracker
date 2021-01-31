@@ -32,7 +32,7 @@ const StyledAggregatorCard = styled(Card)`
  */
 function Aggregator({ series, category, granularity, aggregator }) {
   return (
-    <StyledAggregatorContainer>
+    <StyledAggregatorContainer data-testid="aggregator">
       {map(series, (series) => {
         if (isEqual(series.name, "Notable Events")) {
           return;
@@ -45,6 +45,7 @@ function Aggregator({ series, category, granularity, aggregator }) {
         }
         return (
           <StyledAggregatorCard
+            data-testid="aggregator-card"
             key={`${series.name}_${aggregator}_${granularity}`}
             variant="outlined"
           >
