@@ -16,7 +16,7 @@ function Header() {
     <StyledCard elevation={0}>
       <CardContent>
         <Typography gutterBottom variant="h4" component="h1">
-          Bay Area Corona Virus Tracker - alpha
+          Bay Area Corona Virus Tracker
         </Typography>
         <Typography variant="body1" color="textSecondary" component="p">
           Monitor corona virus growth rates across Bay Area counties. Keep your
