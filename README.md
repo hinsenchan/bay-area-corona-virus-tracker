@@ -1,3 +1,79 @@
+# What is Bay Area Corona Virus Tracker?
+
+Bay Area Corona Virus Tracker is a web application that monitors COVID-19 growth rates across Bay Area counties. The time series data is sourced from SF Chronicle's Coronavirus Tracker. Original data compiled by the SF Chronicle was collected from the Centers for Disese Control, California Department of Public Health, and individual county public health departments.
+
+The web application is fully responsive and designed to be viewed on both mobile and desktop devices. It was developed using Material-UI framework on top of Create React App (CRA). Material-UI is a simple and customizable component library to build faster, beautiful, and more accessible React applications. CRA is an integrated toolchain that provides a massive head start when building React apps. It saves time from setup and configuration and requires a single command to set up the tools to start a React project.
+
+Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page load. Any data collected is cached into local storage in order to limit hits to the API. If new data is unavailable, the web application will fallback to rendering the previously fetched data.
+
+## Mobile
+
+<img src="/readme/mobile.png" width="197" height="400">
+
+## Desktop
+
+<img src="/readme/desktop.png" width="710" height="400">
+
+# Application Features
+
+## Data Filters
+
+- Filter data set by 1 month, 3 months, 6 months, max data
+- Filter data by total vs new cases and deaths
+- Filter data by multiples vs growth rates
+
+<img src="/readme/mobile_data_filters.png" width="197" height="400">
+<img src="/readme/desktop_data_filters.png" width="710" height="400">
+
+## Total Cases and Deaths - Multiple
+
+- View total cases and deaths by counties
+- View growth multiple from start to end date
+
+<img src="/readme/mobile_total_multiple.png" width="197" height="400">
+<img src="/readme/desktop_total_multiple.png" width="710" height="400">
+
+## Total Cases and Deaths - Growth Rate
+
+- View total cases and deaths by counties
+- View growth rates from start to end date
+
+<img src="/readme/mobile_total_growth_rate.png" width="197" height="400">
+<img src="/readme/desktop_total_growth_rate.png" width="710" height="400">
+
+## New Cases and Deaths - Multiple
+
+- View new cases and deaths by counties
+- View growth multiple from start to end date
+
+<img src="/readme/mobile_new_multiple.png" width="197" height="400">
+<img src="/readme/desktop_new_multiple.png" width="710" height="400">
+
+## New Cases and Deaths - Growth Rate
+
+- View new cases and deaths by counties
+- View growth rates from start to end date
+
+<img src="/readme/mobile_new_growth_rate.png" width="197" height="400">
+<img src="/readme/desktop_new_growth_rate.png" width="710" height="400">
+
+## COVID-19 Related Events
+
+- Cross reference growth rate changes against major COVID-19 events via chart milestone flags
+- View details of each major COVID-19 related event via chart tooltips
+
+<img src="/readme/mobile_event_tooltip.png" width="197" height="400">
+<img src="/readme/desktop_event_tooltip.png" width="710" height="400">
+
+## Case and Death Numbers Reported
+
+- View exact cases and deaths reported by each county via chart tooltips
+
+<img src="/readme/mobile_value_tooltip.png" width="197" height="400">
+<img src="/readme/desktop_value_tooltip.png" width="710" height="400">
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
