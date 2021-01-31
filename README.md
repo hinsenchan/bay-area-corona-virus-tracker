@@ -1,6 +1,6 @@
 # What is Bay Area Corona Virus Tracker?
 
-Bay Area Corona Virus Tracker is a web application that monitors COVID-19 growth rates across Bay Area counties. The time series data is sourced from SF Chronicle's Coronavirus Tracker. Original data compiled by the SF Chronicle was collected from the Centers for Disese Control, California Department of Public Health, and individual county public health departments.
+Bay Area Corona Virus Tracker is a web application that monitors COVID-19 growth rates across Bay Area counties. The time series data is sourced from SF Chronicle's [Coronavirus Tracker](https://projects.sfchronicle.com/2020/coronavirus-map/). Original data compiled by the SF Chronicle was collected from the [Centers for Disese Control](https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html), [California Department of Public Health](https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/nCOV2019.aspx), and individual county public health departments.
 
 The web application is fully responsive and designed to be viewed on both mobile and desktop devices. It was developed using Material-UI framework on top of Create React App (CRA). Material-UI is a simple and customizable component library to build faster, beautiful, and more accessible React applications. CRA is an integrated toolchain that provides a massive head start when building React apps. It saves time from setup and configuration and requires a single command to set up the tools to start a React project.
 
