@@ -18,7 +18,7 @@ const GRANULARITY_DATETIME = {
 export function useDataFilters() {
   const [aggregator, setAggregator] = useState("multiples");
   const [category, setCategory] = useState("Total");
-  const [granularity, setGranularity] = useState("month");
+  const [granularity, setGranularity] = useState("quarter");
 
   const handleAggregator = (newAggregator) => {
     setAggregator(newAggregator);

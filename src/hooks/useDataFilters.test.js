@@ -18,13 +18,13 @@ test("useDataFilters", () => {
   ] = result.current;
   expect(aggregator).toEqual("multiples");
   expect(category).toEqual("Total");
-  expect(granularity).toEqual("month");
+  expect(granularity).toEqual("quarter");
   expect(startDateTime).toEqual(START_DATE_TIME);
-  expect(endDateTime).toEqual(START_DATE_TIME_PLUS_30);
+  expect(endDateTime).toEqual(START_DATE_TIME_PLUS_90);
   act(() => {
     handleAggregator("growthRates");
     handleCategory("New");
-    handleGranularity("quarter");
+    handleGranularity("month");
   });
   const [
     _aggregator,
@@ -38,7 +38,7 @@ test("useDataFilters", () => {
   ] = result.current;
   expect(_aggregator).toEqual("growthRates");
   expect(_category).toEqual("New");
-  expect(_granularity).toEqual("quarter");
+  expect(_granularity).toEqual("month");
   expect(_startDateTime).toEqual(START_DATE_TIME);
-  expect(_endDateTime).toEqual(START_DATE_TIME_PLUS_90);
+  expect(_endDateTime).toEqual(START_DATE_TIME_PLUS_30);
 });
