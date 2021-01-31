@@ -1,12 +1,23 @@
 import React, { Fragment } from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import { isEqual } from "lodash";
+import { isEqual, isNull } from "lodash";
 import styled from "styled-components/macro";
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   margin: 8px;
 `;
+
+/**
+ * Enforce at least one button to be active.
+ * @param {Function} onChange
+ * @returns {Function} onChange
+ */
+function enforceValueOnChange(onChange) {
+  return (event, newValue) => {
+    !isNull(newValue) && onChange(newValue);
+  };
+}
 
 /**
  * Presenter for data filter button group.
@@ -26,7 +37,7 @@ export default function ButtonGroup(props) {
       <StyledToggleButtonGroup
         value={granularity}
         exclusive
-        onChange={handleGranularity}
+        onChange={enforceValueOnChange(handleGranularity)}
         aria-label="granularity"
       >
         <ToggleButton value="month" aria-label="month">
@@ -45,7 +56,7 @@ export default function ButtonGroup(props) {
       <StyledToggleButtonGroup
         value={category}
         exclusive
-        onChange={handleCategory}
+        onChange={enforceValueOnChange(handleCategory)}
         aria-label="category"
       >
         <ToggleButton value="New" aria-label="new">
@@ -61,7 +72,7 @@ export default function ButtonGroup(props) {
         <StyledToggleButtonGroup
           value={aggregator}
           exclusive
-          onChange={handleAggregator}
+          onChange={enforceValueOnChange(handleAggregator)}
           aria-label="aggregator"
         >
           <ToggleButton value="growthRates" aria-label="growthRates">

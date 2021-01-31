@@ -20,15 +20,15 @@ export function useDataFilters() {
   const [category, setCategory] = useState("Total");
   const [granularity, setGranularity] = useState("month");
 
-  const handleAggregator = (event, newAggregator) => {
+  const handleAggregator = (newAggregator) => {
     setAggregator(newAggregator);
   };
 
-  const handleCategory = (event, newCategory) => {
+  const handleCategory = (newCategory) => {
     setCategory(newCategory);
   };
 
-  const handleGranularity = (event, newGranularity) => {
+  const handleGranularity = (newGranularity) => {
     setGranularity(newGranularity);
   };
 

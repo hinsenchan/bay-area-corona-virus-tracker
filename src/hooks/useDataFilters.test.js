@@ -5,7 +5,6 @@ test("useDataFilters", () => {
   const START_DATE_TIME = 1579939200000;
   const START_DATE_TIME_PLUS_30 = 1582531200000;
   const START_DATE_TIME_PLUS_90 = 1587711600000;
-  const event = {};
   const { result } = renderHook(() => useDataFilters());
   const [
     aggregator,
@@ -23,9 +22,9 @@ test("useDataFilters", () => {
   expect(startDateTime).toEqual(START_DATE_TIME);
   expect(endDateTime).toEqual(START_DATE_TIME_PLUS_30);
   act(() => {
-    handleAggregator(event, "growthRates");
-    handleCategory(event, "New");
-    handleGranularity(event, "quarter");
+    handleAggregator("growthRates");
+    handleCategory("New");
+    handleGranularity("quarter");
   });
   const [
     _aggregator,
