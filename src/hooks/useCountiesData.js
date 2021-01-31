@@ -85,8 +85,8 @@ export function useCountiesData() {
   );
   const totalGroupedSortedBayAreaCountiesTimeSeriesObj = mapValues(
     clonedGroupedSortedBayAreaCountiesTimeSeriesObj,
-    (seriesArray) => {
-      return map(seriesArray, (series) => {
+    (countySeries) => {
+      return map(countySeries, (series) => {
         let count = 0;
         series.name = replace(series.name, " new", " total");
         series.data = map(series.data, (timeSeriesObj) => {
@@ -99,23 +99,18 @@ export function useCountiesData() {
   );
   const newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj = mapValues(
     totalGroupedSortedBayAreaCountiesTimeSeriesObj,
-    (series, name) => {
-      series = concat(series, groupedSortedBayAreaCountiesTimeSeriesObj[name]);
-      return series;
-    }
+    (series, name) =>
+      concat(series, groupedSortedBayAreaCountiesTimeSeriesObj[name])
   );
 
   const newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags = mapValues(
     newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObj,
-    (series, name) => {
-      series = concat(series, NOTABLE_EVENTS);
-      return series;
-    }
+    (series, name) => concat(series, NOTABLE_EVENTS)
   );
   const countyWithMultiples = mapValues(
     newAndTotalGroupedSortedBayAreaCountiesTimeSeriesObjWithFlags,
-    (series, name) => {
-      return map(series, (series) => {
+    (countySeries, name) => {
+      return map(countySeries, (series) => {
         if (isEqual(series.type, "flags")) {
           return series;
         }
@@ -146,8 +141,8 @@ export function useCountiesData() {
   );
   const countyWithGrowthRates = mapValues(
     countyWithMultiples,
-    (series, name) => {
-      return map(series, (series) => {
+    (countySeries, name) => {
+      return map(countySeries, (series) => {
         if (isEqual(series.type, "flags")) {
           return series;
         }
@@ -184,8 +179,8 @@ export function useCountiesData() {
   );
   const transformedCountiesData = mapValues(
     countyWithGrowthRates,
-    (series, name) => {
-      return map(series, (series) => {
+    (countySeries, name) => {
+      return map(countySeries, (series) => {
         series.category = replace(series.name, `${name} `, "");
         series.name = startCase(series.category);
         if (isEqual(series.type, "flags")) {
