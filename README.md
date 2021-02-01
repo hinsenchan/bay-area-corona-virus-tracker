@@ -6,6 +6,8 @@ The web application is fully responsive and designed to be viewed on both mobile
 
 Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page load. Any data collected is cached into local storage in order to limit hits to the API. If new data is unavailable, the web application will fallback to rendering the previously fetched data.
 
+https://bay-area-corona-virus-tracker.firebaseapp.com/
+
 ## Mobile
 
 <img src="/readme/mobile.png" width="197" height="400">
