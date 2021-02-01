@@ -30,6 +30,10 @@ Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page
 - View total cases and deaths by counties
 - View growth multiple from start to end date
 
+```
+multiple = end value / start value
+```
+
 <img src="/readme/mobile_total_multiple.png" width="197" height="400">
 <img src="/readme/desktop_total_multiple.png" width="710" height="400">
 
@@ -37,6 +41,10 @@ Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page
 
 - View total cases and deaths by counties
 - View growth rates from start to end date
+
+```
+growth rate = ((end value - start value) / start value) * 100
+```
 
 <img src="/readme/mobile_total_growth_rate.png" width="197" height="400">
 <img src="/readme/desktop_total_growth_rate.png" width="710" height="400">
@@ -46,6 +54,10 @@ Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page
 - View new cases and deaths by counties
 - View growth multiple from start to end date
 
+```
+multiple = end value / start value
+```
+
 <img src="/readme/mobile_new_multiple.png" width="197" height="400">
 <img src="/readme/desktop_new_multiple.png" width="710" height="400">
 
@@ -53,6 +65,10 @@ Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page
 
 - View new cases and deaths by counties
 - View growth rates from start to end date
+
+```
+growth rate = ((end value - start value) / start value) * 100
+```
 
 <img src="/readme/mobile_new_growth_rate.png" width="197" height="400">
 <img src="/readme/desktop_new_growth_rate.png" width="710" height="400">
