@@ -8,6 +8,14 @@ Bay Area Corona Virus Tracker fetches data daily from SF Chronicle's API on page
 
 https://bay-area-corona-virus-tracker.firebaseapp.com/
 
+**Note:**\
+San Francisco Chronicle stopped updating their API with the latest COVID-19 data since 2020-09-22. As a result, this application will not be able to provide future daily updates. We've adjusted the date range filters, so the end date will be static at 2020-09-22. Start dates are determined by the filter. It will correspond to the filter value selected by subtracting days from the end date. 
+
+* 1M = 2020-08-23 to 2020-09-22
+* 3M = 2020-06-24 to 2020-09-22
+* 6M = 2020-03-26 to 2020-09-22
+* MAX = 2020-01-25 to 2020-09-22
+
 ## Mobile
 
 <img src="/readme/mobile.png" width="197" height="400">
