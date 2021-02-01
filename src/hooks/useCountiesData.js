@@ -2,14 +2,14 @@ import {
   cloneDeep,
   concat,
   isEqual,
+  find,
   forEach,
+  get,
   groupBy,
   isNumber,
   keyBy,
-  last,
   map,
   mapValues,
-  nth,
   omit,
   replace,
   round,
@@ -19,6 +19,7 @@ import {
 } from "lodash";
 import moment from "moment";
 import { useFetchAndStore } from "./useFetchAndStore";
+import { DATA_END_DATE, GRANULARITY_DATETIME } from "../utils/dateConstants";
 import { NOTABLE_EVENTS } from "../utils/eventConstants";
 
 /**
@@ -114,21 +115,33 @@ export function useCountiesData() {
         if (isEqual(series.type, "flags")) {
           return series;
         }
-        const now = last(series.data) || {};
-        const month = nth(series.data, -30) || {};
-        const quarter = nth(series.data, -90) || {};
-        const halfYear = nth(series.data, -180) || {};
+        const endTimestamp = moment(DATA_END_DATE).valueOf();
+        const monthTimestamp = get(GRANULARITY_DATETIME, "month");
+        const quarterTimestamp = get(GRANULARITY_DATETIME, "quarter");
+        const halfYearTimestamp = get(GRANULARITY_DATETIME, "halfYear");
+        const endData = find(series.data, ["x", endTimestamp]) || {};
+        const monthData = find(series.data, ["x", monthTimestamp]) || {};
+        const quarterData = find(series.data, ["x", quarterTimestamp]) || {};
+        const halfYearData = find(series.data, ["x", halfYearTimestamp]) || {};
         let monthMultiple;
         let quarterMultiple;
         let halfYearMultiple;
-        if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
-          monthMultiple = `${round(now.y / month.y, 2)}x`;
+        if (isNumber(endData.y) && isNumber(monthData.y) && monthData.y > 0) {
+          monthMultiple = `${round(endData.y / monthData.y, 2)}x`;
         }
-        if (isNumber(now.y) && isNumber(quarter.y) && quarter.y > 0) {
-          quarterMultiple = `${round(now.y / quarter.y, 2)}x`;
+        if (
+          isNumber(endData.y) &&
+          isNumber(quarterData.y) &&
+          quarterData.y > 0
+        ) {
+          quarterMultiple = `${round(endData.y / quarterData.y, 2)}x`;
         }
-        if (isNumber(now.y) && isNumber(halfYear.y) && halfYear.y > 0) {
-          halfYearMultiple = `${round(now.y / halfYear.y, 2)}x`;
+        if (
+          isNumber(endData.y) &&
+          isNumber(halfYearData.y) &&
+          halfYearData.y > 0
+        ) {
+          halfYearMultiple = `${round(endData.y / halfYearData.y, 2)}x`;
         }
         series.multiples = {
           month: monthMultiple,
@@ -146,25 +159,40 @@ export function useCountiesData() {
         if (isEqual(series.type, "flags")) {
           return series;
         }
-        const now = last(series.data) || {};
-        const month = nth(series.data, -30) || {};
-        const quarter = nth(series.data, -90) || {};
-        const halfYear = nth(series.data, -180) || {};
+        const endTimestamp = moment(DATA_END_DATE).valueOf();
+        const monthTimestamp = get(GRANULARITY_DATETIME, "month");
+        const quarterTimestamp = get(GRANULARITY_DATETIME, "quarter");
+        const halfYearTimestamp = get(GRANULARITY_DATETIME, "halfYear");
+        const endData = find(series.data, ["x", endTimestamp]) || {};
+        const monthData = find(series.data, ["x", monthTimestamp]) || {};
+        const quarterData = find(series.data, ["x", quarterTimestamp]) || {};
+        const halfYearData = find(series.data, ["x", halfYearTimestamp]) || {};
         let monthGrowthRate;
         let quarterGrowthRate;
         let halfYearGrowthRate;
-        if (isNumber(now.y) && isNumber(month.y) && month.y > 0) {
-          monthGrowthRate = `${round(((now.y - month.y) / month.y) * 100, 2)}%`;
-        }
-        if (isNumber(now.y) && isNumber(quarter.y) && quarter.y > 0) {
-          quarterGrowthRate = `${round(
-            ((now.y - quarter.y) / quarter.y) * 100,
+        if (isNumber(endData.y) && isNumber(monthData.y) && monthData.y > 0) {
+          monthGrowthRate = `${round(
+            ((endData.y - monthData.y) / monthData.y) * 100,
             2
           )}%`;
         }
-        if (isNumber(now.y) && isNumber(halfYear.y) && halfYear.y > 0) {
+        if (
+          isNumber(endData.y) &&
+          isNumber(quarterData.y) &&
+          quarterData.y > 0
+        ) {
+          quarterGrowthRate = `${round(
+            ((endData.y - quarterData.y) / quarterData.y) * 100,
+            2
+          )}%`;
+        }
+        if (
+          isNumber(endData.y) &&
+          isNumber(halfYearData.y) &&
+          halfYearData.y > 0
+        ) {
           halfYearGrowthRate = `${round(
-            ((now.y - halfYear.y) / halfYear.y) * 100,
+            ((endData.y - halfYearData.y) / halfYearData.y) * 100,
             2
           )}%`;
         }

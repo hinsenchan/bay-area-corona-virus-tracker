@@ -1,15 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-
-const DATA_START_DATE = "2020-01-25";
-const DATA_END_DATE = "2020-09-22";
-
-const GRANULARITY_DATETIME = {
-  month: moment(DATA_START_DATE).add(30, "days").valueOf(),
-  quarter: moment(DATA_START_DATE).add(90, "days").valueOf(),
-  halfYear: moment(DATA_START_DATE).add(180, "days").valueOf(),
-  max: moment(DATA_END_DATE).valueOf(),
-};
+import { DATA_END_DATE, GRANULARITY_DATETIME } from "../utils/dateConstants";
 
 /**
  * Maintains data filter states and handlers to modify it.
@@ -32,8 +23,8 @@ export function useDataFilters() {
     setGranularity(newGranularity);
   };
 
-  const endDateTime = GRANULARITY_DATETIME[granularity];
-  const startDateTime = moment(DATA_START_DATE).valueOf();
+  const startDateTime = GRANULARITY_DATETIME[granularity];
+  const endDateTime = moment(DATA_END_DATE).valueOf();
 
   return [
     aggregator,

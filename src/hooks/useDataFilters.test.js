@@ -2,9 +2,9 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { useDataFilters } from "./useDataFilters";
 
 test("useDataFilters", () => {
-  const START_DATE_TIME = 1579939200000;
-  const START_DATE_TIME_PLUS_30 = 1582531200000;
-  const START_DATE_TIME_PLUS_90 = 1587711600000;
+  const END_DATE_TIME = 1600758000000;
+  const END_DATE_TIME_MINUS_30 = 1598166000000;
+  const END_DATE_TIME_MINUS_90 = 1592982000000;
   const { result } = renderHook(() => useDataFilters());
   const [
     aggregator,
@@ -19,8 +19,8 @@ test("useDataFilters", () => {
   expect(aggregator).toEqual("multiples");
   expect(category).toEqual("Total");
   expect(granularity).toEqual("quarter");
-  expect(startDateTime).toEqual(START_DATE_TIME);
-  expect(endDateTime).toEqual(START_DATE_TIME_PLUS_90);
+  expect(startDateTime).toEqual(END_DATE_TIME_MINUS_90);
+  expect(endDateTime).toEqual(END_DATE_TIME);
   act(() => {
     handleAggregator("growthRates");
     handleCategory("New");
@@ -39,6 +39,6 @@ test("useDataFilters", () => {
   expect(_aggregator).toEqual("growthRates");
   expect(_category).toEqual("New");
   expect(_granularity).toEqual("month");
-  expect(_startDateTime).toEqual(START_DATE_TIME);
-  expect(_endDateTime).toEqual(START_DATE_TIME_PLUS_30);
+  expect(_startDateTime).toEqual(END_DATE_TIME_MINUS_30);
+  expect(_endDateTime).toEqual(END_DATE_TIME);
 });
