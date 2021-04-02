@@ -63,9 +63,10 @@ test("useCountiesData", () => {
       "1/25/20": "1",
     },
   ];
-  useFetchAndStore.mockReturnValueOnce(fetchedData);
+  useFetchAndStore.mockReturnValueOnce({ data: fetchedData, error: null });
   const { result } = renderHook(() => useCountiesData());
-  expect(result.current).toEqual({
+  const { data, error } = result.current;
+  expect(data).toEqual({
     "BAY AREA": [
       {
         category: "Total Cases",
@@ -329,4 +330,5 @@ test("useCountiesData", () => {
       },
     ],
   });
+  expect(error).toBeNull();
 });

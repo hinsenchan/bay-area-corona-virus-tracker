@@ -1,7 +1,10 @@
 import React from "react";
 import { defaultTo, get } from "lodash";
 import { Box, Grid, Typography } from "@material-ui/core";
-import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
+import {
+  ErrorBoundary as ReactErrorBoundary,
+  useErrorHandler,
+} from "react-error-boundary";
 import styled from "styled-components/macro";
 
 const ERROR_NAME_ATTRIBUTE = "name";
@@ -80,16 +83,26 @@ function ErrorFallback(props) {
 }
 
 /**
+ * Throws error caught by parent at the child level.
+ */
+function ThrowableError(props) {
+  const { error } = props;
+  useErrorHandler(error);
+  return "";
+}
+
+/**
  * Presenter for error boundary component.
  */
 function ErrorBoundary(props) {
-  const { className, children } = props;
+  const { throwableError, className, children } = props;
   return (
     <ReactErrorBoundary
       fallbackRender={({ error }) => (
         <ErrorFallback error={error} className={className} />
       )}
     >
+      <ThrowableError error={throwableError} />
       {children}
     </ReactErrorBoundary>
   );

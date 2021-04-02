@@ -28,9 +28,10 @@ describe("useFetchAndStore", () => {
     ];
     store.get.mockReturnValueOnce(payload);
     const { result } = renderHook(() => useFetchAndStore());
-    expect.assertions(1);
-    const initialData = result.current;
+    expect.assertions(2);
+    const { data: initialData, error } = result.current;
     expect(initialData).toEqual(payload);
+    expect(error).toBeNull();
   });
 
   test("get fetched data", async () => {
@@ -54,11 +55,12 @@ describe("useFetchAndStore", () => {
     ];
     fetchAPIData.mockResolvedValueOnce(payload);
     const { result, waitForNextUpdate } = renderHook(() => useFetchAndStore());
-    expect.assertions(2);
-    const initialData = result.current;
+    expect.assertions(3);
+    const { data: initialData } = result.current;
     expect(initialData).toEqual([]);
     await waitForNextUpdate();
-    const fetchedData = result.current;
+    const { data: fetchedData, error } = result.current;
     expect(fetchedData).toEqual(payload);
+    expect(error).toBeNull();
   });
 });

@@ -1,3 +1,4 @@
+import { ApiError } from "../utils/errors";
 import { COVID_19_CASES_AND_DEATHS_URL } from "../utils/urlConstants";
 import { fetchAPIData } from "./fetchService";
 
@@ -34,7 +35,7 @@ describe("fetchService", () => {
     });
 
     test("fetch error", async () => {
-      const response = new Error("Failed Fetch");
+      const response = new ApiError();
       fetch.mockRejectOnce(response);
       expect.assertions(3);
       await expect(fetchAPIData()).rejects.toEqual(response);

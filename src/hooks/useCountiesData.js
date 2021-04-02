@@ -30,7 +30,7 @@ import { NOTABLE_EVENTS } from "../utils/eventConstants";
  * @returns {Object} transformed counties data
  */
 export function useCountiesData() {
-  const data = useFetchAndStore();
+  const { data, error } = useFetchAndStore();
   const bayAreaCounties = data.filter((county) =>
     isEqual(county["BAY AREA"], "YES")
   );
@@ -220,5 +220,5 @@ export function useCountiesData() {
       });
     }
   );
-  return transformedCountiesData;
+  return { data: transformedCountiesData, error };
 }

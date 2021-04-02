@@ -30,11 +30,15 @@ function getStoreData(key) {
  * @param {Function} setData
  * @returns {void}
  */
-async function fetchAndStore(key, data, setData) {
-  if (isEmpty(data)) {
-    const payload = await fetchAPIData();
-    setStoreData(key, payload);
-    setData(payload);
+async function fetchAndStore(key, data, setData, setError) {
+  try {
+    if (isEmpty(data)) {
+      const payload = await fetchAPIData();
+      setStoreData(key, payload);
+      setData(payload);
+    }
+  } catch (error) {
+    setError(error);
   }
 }
 
@@ -46,10 +50,11 @@ export function useFetchAndStore() {
   const key = moment().format("YYYY-MM-DD");
   const storeData = getStoreData(key) || [];
   const [data, setData] = useState(storeData);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchAndStore(key, data, setData);
+    fetchAndStore(key, data, setData, setError);
   }, [key, data]);
 
-  return data;
+  return { data, error };
 }
