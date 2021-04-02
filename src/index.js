@@ -5,6 +5,12 @@ import * as serviceWorker from "./serviceWorker";
 import "typeface-roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import styled from "styled-components/macro";
+import ErrorBoundary from "./components/ErrorBoundary";
+
+const StyledErrorBoundary = styled(ErrorBoundary)`
+  height: 100vh;
+`;
 
 const theme = createMuiTheme({
   palette: {
@@ -18,7 +24,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <StyledErrorBoundary>
+        <App />
+      </StyledErrorBoundary>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
